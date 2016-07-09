@@ -95,21 +95,42 @@ class AppGenerator {
         if (prompt.when) {
           question.when = function(answers) {
             const {options, config, pkg} = data;
-            return eval(prompt.when);
+
+            try {
+              return Promise.resolve( eval(prompt.when) );
+            }
+            catch(e) {
+              e.message = `${e.message}: ${prompt.when}`;
+              return Promise.reject(e);
+            }
           };
         }
 
         if (prompt.filter) {
-          question.filter = function(answers) {
+          question.filter = function(input) {
             const {options, config, pkg} = data;
-            return eval(prompt.filter);
+            
+            try {
+              return Promise.resolve( eval(prompt.filter) );
+            }
+            catch(e) {
+              e.message = `${e.message}: ${prompt.filter}`;
+              return Promise.reject(e);
+            }
           };
         }
 
         if (prompt.validate) {
-          question.validate = function(answers) {
+          question.validate = function(input) {
             const {options, config, pkg} = data;
-            return eval(prompt.validate);
+            
+            try {
+              return Promise.resolve( eval(prompt.validate) );
+            }
+            catch(e) {
+              e.message = `${e.message}: ${prompt.validate}`;
+              return Promise.reject(e);
+            }
           };
         }
 
