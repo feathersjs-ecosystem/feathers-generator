@@ -1,0 +1,128 @@
+{
+  "prompts": [
+    {
+      "name": "name",
+      "type": "input",
+      "message": "Name of your Feathers application",
+      "default": "pkg.name || options.name",
+      "required": true
+    },
+    {
+      "name": "description",
+      "type": "input",
+      "message": "Project description",
+      "default": "pkg.description || 'A Feathers project'"
+    },
+    {
+      "name": "providers",
+      "type": "checkbox",
+      "message": "What type of API are you making?",
+      "choices": [
+        {
+          "name": "REST",
+          "value": "rest",
+          "checked": true
+        },
+        {
+          "name": "Realtime via Socket.io",
+          "value": "socketio",
+          "checked": true
+        },
+        {
+          "name": "Realtime via Primus",
+          "value": "primus"
+        }
+      ]
+    },
+    {
+      "name": "cors",
+      "type": "list",
+      "message": "CORS configuration",
+      "choices": [
+        {
+          "name": "Enabled for all domains",
+          "value": "enabled",
+          "checked": true
+        },
+        {
+          "name": "Enabled for whitelisted domains",
+          "value": "whitelisted"
+        },
+        {
+          "name": "Disabled",
+          "value": false
+        }
+      ]
+    },
+    {
+      "name": "whitelist",
+      "type": "input",
+      "message": "Comma-separated domains for CORS whitelist. Include http(s)",
+      "when": "answers.cors === 'whitelisted'"
+    },
+    {
+      "name": "linter",
+      "type": "list",
+      "message": "Which linter would you like to use?",
+      "when": "answers.linter === undefined",
+      "choices": [
+        {
+          "name": "JShint",
+          "value": "jshint"
+        },
+        {
+          "name": "ESLint",
+          "value": "eslint"
+        },
+        {
+          "name": "None",
+          "value": "none"
+        }
+      ]
+    },
+    {
+      "name": "eslint",
+      "type": "list",
+      "message": "Pick an ESLint preset",
+      "when": "answers.linter === 'eslint'",
+      "choices": [
+        {
+          "name": "Standard (https://github.com/feross/standard)",
+          "value": "standard",
+          "short": "Standard"
+        },
+        {
+          "name": "AirBNB (https://github.com/airbnb/javascript)",
+          "value": "airbnb",
+          "short": "AirBNB"
+        },
+        {
+          "name": "none (configure it yourself)",
+          "value": "none",
+          "short": "none"
+        }
+      ]
+    }
+  ],
+  "dependencies": [
+    { "name": "feathers" },
+    { "name": "feathers-hooks" },
+    { "name": "feathers-errors" },
+    { "name": "feathers-bootstrap" },
+    { "name": "feathers-rest", "when": "options.providers.indexOf('rest') !== -1" },
+    { "name": "feathers-socketio", "when": "options.providers.indexOf('socketio') !== -1" },
+    { "name": "feathers-primus", "when": "options.providers.indexOf('primus') !== -1" },
+    { "name": "ws", "when": "options.providers.indexOf('primus') !== -1" },
+    { "name": "body-parser" },
+    { "name": "serve-favicon" },
+    { "name": "winston" },
+    { "name": "compression" },
+    { "name": "cors", "when": "options.cors" }
+  ],
+  "devDependencies": [
+    { "name": "mocha" },
+    { "name": "babel-cli", "when": "options.babel" },
+    { "name": "babel-core", "when": "options.babel" },
+    { "name": "babel-preset-es2015", "when": "options.babel" }
+  ]
+}

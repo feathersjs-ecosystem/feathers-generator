@@ -1,0 +1,7 @@
+{
+  "prompts": {
+    "whenNot": "config.nedb.path",
+    "name": "config.nedb.path",
+    "description": "What is the path to your database"
+  }
+}

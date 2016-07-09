@@ -1,0 +1,7 @@
+{
+  "require": "feathers-mongoose",
+  "options": {
+    "model": "./service.model",
+    "paginate": "config.paginate"
+  }
+}

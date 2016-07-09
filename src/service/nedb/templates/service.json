@@ -1,0 +1,10 @@
+{
+  "require": "feathers-nedb",
+  "options": {
+    "Model": {
+      "require": "./service.model",
+      "options": { "nedb": "config.nedb" }
+    },
+    "paginate": "config.paginate"
+  }
+}
