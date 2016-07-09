@@ -37,7 +37,9 @@ This file contains the meta data that each generator uses to tell the CLI which 
 
 ### `prompts`
 
-The CLI uses [inquirer](https://github.com/sboudrias/Inquirer.js) to ask the user questions and gather information. The `prompts` in the meta.json tell the CLI what questions to ask an when. They are exactly the same as when defining prompts with Vanilla inquirer. The difference is you only need to define your conditional statements for functions and you have access to more than just the current `answers` in each function. You can reference:
+The CLI uses [inquirer](https://github.com/sboudrias/Inquirer.js) to ask the user questions and gather information. The `prompts` section in the `meta.json` file tells the CLI which questions to ask and when.
+
+They are almost exactly the same as when defining prompts with vanilla inquirer. The only difference is that for every [Inquirer question](https://github.com/sboudrias/Inquirer.js#question) key that supports a function, we've already wrapped your value in function for you so that we can expose additional properties. Therefore your `default`, `when`, `filter`, and `validate` values can reference:
 
 - `answers` - The ongoing answers to the questionnaire in the current Inquirer session.
 - `options` - The existing options prior to prompting
@@ -45,6 +47,8 @@ The CLI uses [inquirer](https://github.com/sboudrias/Inquirer.js) to ask the use
 - `config.default` - Any `config/default.json` fields for the existing app
 - `config.staging` - Any `config/staging.json` fields for the existing app
 - `config.production` - Any `config/production.json` fields for the existing app
+
+See [this meta.json](./src/app/meta.json) for an example.
 
 ### Generating Stuff
 
@@ -61,6 +65,9 @@ const args = {
   force: false, // whether it should override any existing values or files without confirmation
 };
 
+// Get the appropriate generator based on the `template` you supplied
+// By this point the generator has already read in existing app configs
+// and the package.json file.
 const generator = Generator(args);
 
 generator.getQuestions()
