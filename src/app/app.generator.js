@@ -1,9 +1,16 @@
 const fs = require('fs-extra');
 const path = require('path');
 const Metalsmith = require('metalsmith');
+const moveUp = require('metalsmith-move-up');
+const copy = require('metalsmith-copy');
 const debug = require('debug')('feathers-generator:app');
 const exists = require('../utils/exists');
 const evaluate = require('../utils/eval');
+const dotfiles = require('../utils/dotfiles');
+const json = require('../utils/json');
+const configuration = require('../utils/configuration');
+const packageJSON = require('../utils/package-json');
+const feathersJSON = require('../utils/feathers-json');
 
 const meta = require('./meta.json');
 const TEMPLATE_PATH = path.resolve(__dirname, 'templates');
@@ -20,6 +27,7 @@ class AppGenerator {
 
     this.loadAppConfigs();
     this.loadPackageJSON();
+    this.loadFeathersJSON();
   }
 
   loadAppConfigs() {
@@ -70,9 +78,26 @@ class AppGenerator {
     // debug('package.json', this.pkg);
   }
 
+  loadFeathersJSON() {
+    const filepath = path.join(this.options.root, 'feathers.json');
+
+    if (!exists(filepath)) {
+      debug(`${filepath} does not exist`);
+      return;
+    }
+
+    try {
+      this.pkg = fs.readJsonSync(filepath);
+    }
+    catch(error) {
+      debug(`Error reading ${filepath}`, error);
+    }
+
+    // debug('package.json', this.pkg);
+  }
+
   getQuestions() {
     // debug('Evaluating questions', meta.prompts);
-
     const data = Object.assign({}, { options: this.options, config: this.config, pkg: this.pkg });
     
     try {
@@ -145,45 +170,75 @@ class AppGenerator {
   }
 
   /*
-   * Takes in a config object provided by a CLI or UI.
+   * Takes in a answers provided by a CLI or UI.
    * Copies appropriate template files with values injected
    * that are passed in the config object.
    *
    * Returns a list of dependencies to be installed
    */
   generate(answers) {
-    this.options = Object.assign({}, this.options, answers);
+    const options = Object.assign({}, this.options, answers);
+    const data = Object.assign({}, {
+      options,
+      // config: this.config,
+      // pkg: this.pkg,
+      // prompts: meta.prompts
+    });
 
     // This is where Metalsmith does the generation
-    debug('New options after questions', this.options);
+    debug('New options after questions', options);
 
-    return Promise.resolve([]);
+    return new Promise((resolve, reject) => {
+      const metalsmith = Metalsmith(TEMPLATE_PATH);
+
+      metalsmith
+        .metadata(data)
+        .use(moveUp({
+          pattern: 'dotfiles/*',
+          opt: { dot: true }
+        }))
+        .use(copy({
+          move: true,
+          pattern: 'gitignore.template',
+          transform: file => '.gitignore'
+        }))
+        .use(json({
+          meta: path.resolve(__dirname, 'meta.json'),
+          default: path.join(options.root, 'config', 'default.json'),
+          staging: path.join(options.root, 'config', 'staging.json'),
+          production: path.join(options.root, 'config', 'production.json'),
+          pkg: path.join(options.root, 'package.json'),
+          feathers: path.join(options.root, 'feathers.json')
+        }))
+        // .ask(prompt)
+        .use(dotfiles())
+        .use(packageJSON())
+        .use(feathersJSON())
+        .use(configuration())
+        // .use(dependencies())
+        .clean(false)
+        .source(TEMPLATE_PATH) // start from template root instead of `./src` which is Metalsmith's default for `source`
+        .destination(this.options.root)
+        .build(function (error) {
+          if (error) {
+            return reject(error);
+          }
+          
+          debug(`Successfully generated ${options.template} "${options.name}" at ${options.root}`);
+
+          const dependencies = {
+            dependencies: meta.dependencies,
+            devDependencies: meta.devDependencies
+          };
+
+          resolve(dependencies);
+        });
+
+    });
   }
 
 }
 
 module.exports = function(options) {
-
   return new AppGenerator(options);
-
-  // TODO (EK): Check for args to see which type of generator we are going to call
-  // 1. look up generator
-  // 2. Read in existing config's
-  // 3. Read in existing package.json
-  // 3. Read in generator meta.json
-  // 4. Prompt user accordingly
-  // 5. Send answers back to generator
-  // 6. Copy template files with answers to appropriate paths (paths to app possibly passed by the CLI)
-  // 6. re-write existing config, package.json and feathers.json files
-  // 7. install npm modules
-  
-
-  // const pluginTemplates = Metalsmith(path.join(__dirname, 'templates'));
-
-  // return function drafts(files, metalsmith, done){
-  //   for (var file in files) {
-  //     if (files[file].draft) delete files[file];
-  //   }
-  //   done();
-  // };
 };

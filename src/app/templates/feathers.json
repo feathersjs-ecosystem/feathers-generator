@@ -1,0 +1,11 @@
+{
+  "config": {},
+  "plugins": [],
+  "services": {},
+  "use": {
+    "/": [
+      { "require": "./middleware/not-found", "options": [] },
+      { "require": "feathers-errors/handler", "options": [] }
+    ]
+  }
+}

@@ -1,6 +1,6 @@
-const fs = require('fs-extra');
+import fs from 'fs-extra';
 
-module.exports = fs.existsSync || function existsSync(filePath){
+export default fs.existsSync || function existsSync(filePath){
   try {
     fs.statSync(filePath);
   }

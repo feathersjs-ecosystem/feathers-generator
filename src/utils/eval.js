@@ -1,11 +1,11 @@
-const chalk = require('chalk');
+import chalk from 'chalk';
 
 /**
  * Evaluate an expression in meta.json in the context of
  * prompt answers data.
  */
 
-module.exports = function evaluate(expression, data) {
+export default function evaluate(expression, data) {
   const fn = new Function('data', `with (data) { return ${expression}; }`);
 
   try {
