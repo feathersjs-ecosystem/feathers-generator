@@ -1,6 +1,6 @@
 {
   "port": 3030,
-  "public": "./public",
+  "static": "./static",
   "paginate": {
     "default": 10,
     "max": 25

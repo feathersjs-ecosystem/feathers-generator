@@ -1,10 +1,10 @@
 // Sub-Generators
-import app from './app/app.generator';
-// import filter from './filter/filter.generator';
-// import hook from './hook/hook.generator';
-// import middleware from './middleware/middleware.generator';
-// import plugin from './plugin/plugin.generator';
-// import service from './service/service.generator';
+import app from './app/generator';
+// import filter from './filter/generator';
+// import hook from './hook/generator';
+// import middleware from './middleware/generator';
+// import plugin from './plugin/generator';
+// import service from './service/generator';
 
 const generators = {
   app,

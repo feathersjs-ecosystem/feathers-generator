@@ -13,9 +13,10 @@ const debug = Debug('feathers-generator');
 export default function(options) {
   
   return function packageJSON(files, metalsmith, done){
-    const meta = metalsmith.metadata();
-    const {name, description, babel, linter} = meta.options;
-    const existing = meta.pkg;
+    const metadata = metalsmith.metadata();
+    const {name, description, babel, linter, providers, cors} = metadata.options;
+    const meta = metadata.meta;
+    const existing = metadata.pkg;
     let template = files['package.json'];
 
     if (template && template.contents) {
@@ -30,8 +31,34 @@ export default function(options) {
       template = { scripts: {} };
     }
 
+    template.name = name;
+    template.description = description;
+
     // Push scripts onto template based on users answers
     // TODO (EK): Support other testing frameworks like Ava?
+    // TODO (EK): Check that we don't have a dependency > these ones already installed
+    // TODO (EK): Write these updates to the final file, not just the template file
+    
+    // Dependencies
+    template.dependencies = Object.assign(
+      {},
+      meta.dependencies.common,
+      providers.indexOf('rest') !== -1 ? meta.dependencies.rest : {},
+      providers.indexOf('socketio') !== -1 ? meta.dependencies.socketio : {},
+      providers.indexOf('primus') !== -1 ? meta.dependencies.primus : {},
+      cors ? meta.dependencies.cors : {}
+    );
+
+    // Development Dependencies
+    template.devDependencies = Object.assign(
+      {},
+      meta.devDependencies.common,
+      babel ? meta.devDependencies.babel : {},
+      linter === 'jshint' ? meta.devDependencies.jshint : {},
+      linter === 'eslint' ? meta.devDependencies.eslint : {}
+    );
+    
+    // Scripts
     if (babel) {
       template.scripts.start = `babel-node index.js`;
       template.scripts.mocha = `mocha test/ --compilers js:babel-core/register --recursive`;
@@ -43,16 +70,16 @@ export default function(options) {
 
     switch(linter) {
       case 'jshint':
-        template.scripts.lint = `jshint src/. test/. --config`;
+        template.scripts.lint = `jshint server/. test/. --config`;
         template.scripts.test = `npm run lint && npm run mocha`;
         break;
       case 'eslint':
-        template.scripts.lint = `eslint src/. test/. --env mocha`;
+        template.scripts.lint = `eslint server/. test/.`;
         template.scripts.test = `npm run lint && npm run mocha`;
         break;
     }
 
-    const newJSON = merge(template, existing, {name, description});
+    const newJSON = merge(template, existing);
 
     files['package.json'].contents = JSON.stringify(newJSON, null, 2);
 

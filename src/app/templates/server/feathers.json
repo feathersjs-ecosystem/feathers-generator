@@ -1,0 +1,20 @@
+{
+  "config": {},
+  "plugins": [
+    { "require": "feathers-hooks", "options": [] }
+  ],
+  "before": {
+    "/": [
+      { "require": "compression", "options": [] }
+    ]
+  },
+  "use": {
+  },
+  "after": {
+    "/": [
+      { "require": "feathers-errors/not-found", "options": [] },
+      { "require": "./middleware/logger", "options": [] },  
+      { "require": "feathers-errors/handler", "options": [] }
+    ]
+  }
+}

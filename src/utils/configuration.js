@@ -1,5 +1,9 @@
 import path from 'path';
 import fs from 'fs-extra';
+import Debug from 'debug'
+import merge from 'lodash.merge';
+
+const debug = Debug('feathers-generator:configuration');
 
 // TODO (EK): Handle config files
 // - plug in this.options in to template/config files
@@ -9,20 +13,30 @@ import fs from 'fs-extra';
 export default function(options) {
   return function configuration(files, metalsmith, done){
     const meta = metalsmith.metadata();
+    const { whitelist } = meta.options;
+    const existing = meta.default;
+    let template = files['config/default.json'];
 
-    // console.log('META', meta);
-    // const contents = fs.readdirSync(options.src);
+    if (template && template.contents) {
+      try {
+        template = JSON.parse(template.contents.toString());
+      }
+      catch(error) {
+        return done(error);
+      }
+    }
+    else {
+      template = {};
+    }
 
-    // If !options.eslint remove 
+    if (whitelist) {
+      template.whitelist = whitelist;
+    }
 
-    // for (let filepath of Object.keys(files)) {
+    const newJSON = merge(template, existing);
 
-    //   path.relative('..', filepath);
-    //   if (object.hasOwnProperty(let)) {
-    //     expression
-    //   }
-    // }
-      
+    files['config/default.json'].contents = JSON.stringify(newJSON, null, 2);
+
     done();
   };
 };

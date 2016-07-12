@@ -1,17 +1,21 @@
-import chalk from 'chalk';
-
 /**
  * Evaluate an expression in meta.json in the context of
  * prompt answers data.
+ *
+ * Are these calls dangerous? They might be if someone
+ * maliciously had a package that executed a shell script.
+ * TODO (EK): Look at escaping these.
  */
 
 export default function evaluate(expression, data) {
-  const fn = new Function('data', `with (data) { return ${expression}; }`);
+  const {options, config, pkg, answers, input} = data;
 
   try {
-    return fn(data);
+    const fn = new Function('options', 'config', 'pkg', 'answers', 'input', `return ${expression};`);
+    return Promise.resolve( fn(options, config, pkg, answers, input) );
   }
-  catch (e) {
-    console.error(chalk.red('Error when evaluating filter condition: ' + expression))
+  catch(e) {
+    e.message = `${e.message}: ${expression}`;
+    return Promise.reject(e);
   }
 }

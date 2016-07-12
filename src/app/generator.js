@@ -11,6 +11,7 @@ const json = require('../utils/json');
 const configuration = require('../utils/configuration');
 const packageJSON = require('../utils/package-json');
 const feathersJSON = require('../utils/feathers-json');
+const install = require('../utils/install');
 
 const meta = require('./meta.json');
 const TEMPLATE_PATH = path.resolve(__dirname, 'templates');
@@ -98,65 +99,57 @@ class AppGenerator {
 
   getQuestions() {
     // debug('Evaluating questions', meta.prompts);
-    const data = Object.assign({}, { options: this.options, config: this.config, pkg: this.pkg });
-    
+    const data = Object.assign({}, {
+      options: this.options,
+      config: this.config,
+      pkg: this.pkg
+    });
+
     try {
       const questions = meta.prompts.map(prompt => {
         const question = Object.assign({}, prompt);
+
+        if (!prompt.name) {
+          throw new Error(`Invalid prompt. You must provide a 'name'. ${prompt}`);
+        }
+
+        if (!prompt.message) {
+          throw new Error(`Invalid prompt '${prompt.name}'. You must provide a 'message'.`);
+        }
+
+        // Wrap up the message so 
+        // question.message = answers => {
+        //   return evaluate(prompt.message, Object.assign({ answers }, data));
+        // };
         
         // If an explicit default is provided in the meta data
         // use that, otherwise use any previously saved option
         // by default.
         if (prompt.default) {
-          question.default = evaluate(prompt.default, data);
+          question.default = answers => {
+            return evaluate(prompt.default, Object.assign({ answers }, data));
+          };
         }
         else {
           question.default = data.options[prompt.name];
         }
 
-        // Are these eval() calls dangerous? They might be if someone
-        // maliciously had a package that executed a shell script.
-        // TODO (EK): Look at escaping these.
         if (prompt.when) {
-          question.when = function(answers) {
-            const {options, config, pkg} = data;
-
-            try {
-              return Promise.resolve( eval(prompt.when) );
-            }
-            catch(e) {
-              e.message = `${e.message}: ${prompt.when}`;
-              return Promise.reject(e);
-            }
+          question.when = answers => {
+            return evaluate(prompt.when, Object.assign({ answers }, data));
           };
         }
 
         if (prompt.filter) {
-          question.filter = function(input) {
-            const {options, config, pkg} = data;
-            
-            try {
-              return Promise.resolve( eval(prompt.filter) );
-            }
-            catch(e) {
-              e.message = `${e.message}: ${prompt.filter}`;
-              return Promise.reject(e);
-            }
-          };
+          question.filter = input => {
+            return evaluate(prompt.filter, Object.assign({ input }, data));
+          }
         }
 
         if (prompt.validate) {
-          question.validate = function(input) {
-            const {options, config, pkg} = data;
-            
-            try {
-              return Promise.resolve( eval(prompt.validate) );
-            }
-            catch(e) {
-              e.message = `${e.message}: ${prompt.validate}`;
-              return Promise.reject(e);
-            }
-          };
+          question.validate = input => {
+            return evaluate(prompt.validate, Object.assign({ input }, data));
+          }
         }
 
         return question;
@@ -208,7 +201,7 @@ class AppGenerator {
           staging: path.join(options.root, 'config', 'staging.json'),
           production: path.join(options.root, 'config', 'production.json'),
           pkg: path.join(options.root, 'package.json'),
-          feathers: path.join(options.root, 'feathers.json')
+          feathers: path.join(options.root, 'server', 'feathers.json')
         }))
         // .ask(prompt)
         .use(dotfiles())
@@ -223,15 +216,16 @@ class AppGenerator {
           if (error) {
             return reject(error);
           }
-          
+
           debug(`Successfully generated ${options.template} "${options.name}" at ${options.root}`);
 
-          const dependencies = {
-            dependencies: meta.dependencies,
-            devDependencies: meta.devDependencies
-          };
-
-          resolve(dependencies);
+          const message = `
+  Great success! Your new app "${options.name}" has been created.
+  
+  Change to the directory by running 'cd ${options.root} start the app with 'npm start'.
+`;
+          
+          install(options).then(() => resolve(message)).catch(reject);
         });
 
     });

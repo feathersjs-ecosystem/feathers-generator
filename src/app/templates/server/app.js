@@ -5,6 +5,6 @@ const path = require('path');
 const bootstrap = require('feathers-bootstrap');
 
 const app = feathers()
-  .configure(bootstrap(path.join(__dirname, 'feathers.json')));
+  .configure(bootstrap(path.resolve(__dirname, 'feathers.json')));
 
 module.exports = app;
