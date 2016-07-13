@@ -16,6 +16,7 @@ export default function(paths) {
 
     for (let key of Object.keys(paths)) {
       const filepath = paths[key];
+      meta[key] = {};
 
       debug(`Attempting to read in ${filepath}`)
       

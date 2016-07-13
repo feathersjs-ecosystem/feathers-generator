@@ -27,6 +27,18 @@ const generators = {
 // 7. install npm modules
 
 
-export default function(options) {
-  return generators[options.template](options);
+export default function(prompt, done, options) {
+  if (!options.root) {
+    throw new Error(`You must provide the project root directory path via 'options.root'`);
+  }
+
+  if (!options.name) {
+    throw new Error(`You must provide a name via 'options.name'`);
+  }
+
+  if (!options.template) {
+    throw new Error(`You must provide a template to generate via 'options.template'`);
+  }
+
+  return generators[options.template](prompt, done, options);
 }

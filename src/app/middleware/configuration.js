@@ -1,5 +1,3 @@
-import path from 'path';
-import fs from 'fs-extra';
 import Debug from 'debug'
 import merge from 'lodash.merge';
 
@@ -13,7 +11,7 @@ const debug = Debug('feathers-generator:configuration');
 export default function(options) {
   return function configuration(files, metalsmith, done){
     const meta = metalsmith.metadata();
-    const { whitelist } = meta.options;
+    const { whitelist } = meta.answers;
     const existing = meta.default;
     let template = files['config/default.json'];
 

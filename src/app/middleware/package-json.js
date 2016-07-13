@@ -1,5 +1,3 @@
-import path from 'path';
-import fs from 'fs-extra';
 import Debug from 'debug'
 import merge from 'lodash.merge';
 
@@ -14,7 +12,8 @@ export default function(options) {
   
   return function packageJSON(files, metalsmith, done){
     const metadata = metalsmith.metadata();
-    const {name, description, babel, linter, providers, cors} = metadata.options;
+    const {name, description } = metadata.options;
+    const {babel, linter, providers, cors} = metadata.answers;
     const meta = metadata.meta;
     const existing = metadata.pkg;
     let template = files['package.json'];

@@ -1,5 +1,3 @@
-import path from 'path';
-import fs from 'fs-extra';
 import Debug from 'debug'
 import merge from 'lodash.merge';
 
@@ -14,7 +12,7 @@ const debug = Debug('feathers-generator:feathers-json');
 export default function(options) {
   return function feathersJSON(files, metalsmith, done){
     const meta = metalsmith.metadata();
-    const { providers, cors, whitelist } = meta.options;
+    const { providers, cors, whitelist } = meta.answers;
     const existing = meta.feathers;
     let template = files['server/feathers.json'];
 
