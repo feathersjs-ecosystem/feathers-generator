@@ -208,7 +208,6 @@ class AppGenerator {
         .use(packageJSON())
         .use(feathersJSON())
         .use(configuration())
-        // .use(dependencies())
         .clean(false)
         .source(TEMPLATE_PATH) // start from template root instead of `./src` which is Metalsmith's default for `source`
         .destination(this.options.root)
