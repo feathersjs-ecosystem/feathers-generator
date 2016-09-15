@@ -17,11 +17,11 @@ export default function(options) {
           throw new Error(`Invalid prompt '${prompt.name}'. You must provide a 'message'.`);
         }
 
-        // Wrap up the message so 
+        // Wrap up the message so
         // question.message = answers => {
         //   return evaluate(prompt.message, Object.assign({ answers }, data));
         // };
-        
+
         // If an explicit default is provided in the meta data
         // use that, otherwise use any previously saved option
         // by default.

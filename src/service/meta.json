@@ -1,0 +1,22 @@
+{
+  "prompts": [
+    {
+    "name": "model",
+    "type": "input",
+    "message": "What model would you like to use?",
+    "required": true
+    },
+    {
+    "name": "filter",
+    "type": "input",
+    "message": "What filters would you like to use?",
+    "required": false
+    },
+    {
+    "name": "hooks",
+    "type": "input",
+    "message": "What hooks would you like to use?",
+    "required": false
+    }
+  ]
+}
