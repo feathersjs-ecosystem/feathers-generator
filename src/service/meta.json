@@ -4,7 +4,7 @@
     "name": "model",
     "type": "input",
     "message": "What model would you like to use?",
-    "required": true
+    "required": false
     },
     {
     "name": "filter",
