@@ -3,11 +3,10 @@ const debug = require('debug')('feathers-generator:service');
 
 // Metalsmith + middleware
 const Metalsmith = require('metalsmith');
-const copy = require('metalsmith-copy');
-const mount = require('./middleware/mount')
+const mount = require('./middleware/mount');
 
 const json = require('../utils/json');
-const ask = require('../utils/ask');
+//const ask = require('../utils/ask');
 
 const TEMPLATE_PATH = path.resolve(__dirname, 'templates');
 
@@ -28,19 +27,18 @@ module.exports = function(prompt, done, options) {
       pkg: path.join(options.root, 'package.json'),
       feathers: path.join(options.path, 'feathers.json')
     }))
-    //.use(ask({ callback: prompt }))
+    //.use(ask({ callback: prompt })) //disabled until more intelligent
     .use(mount(options))
     .source(TEMPLATE_PATH)
     .destination(SERVICE_PATH)
     .build(function(error){
       if(error) {
-        return done(error)
+        return done(error);
       }
 
-      const message = `Successfully generated ${options.template} "${options.name}" at ${SERVICE_PATH}`;
+      const message = `Successfully generated "${options.name}" ${options.template} at ${SERVICE_PATH}`;
       debug(message);
       done(null, message);
-    })
-
+    });
 
 };

@@ -16,9 +16,6 @@ export default function(options) {
       return done(null);
     }
 
-    const meta = metalsmith.metadata();
-    const answers = meta.answers;
-
     // @slajax refactor this into src/util/configuration so we have getter/setters for async changing of all configs
     // load existing root config
     const feathersConfigPath = path.resolve(options.mount);
@@ -26,18 +23,24 @@ export default function(options) {
 
     // add new service to root config for bootstrapping
     const serviceConfigPath = path.resolve(options.path, options.name, options.name+'.json.js' );
-    const feathersConfigChanges = { use: { ['/'+options.name]: serviceConfigPath } };
-    const newFeathersConfig = merge(feathersConfigChanges, existingFeathersConfig);
+    const relativeServiceConfigPath = path.relative(process.cwd(), serviceConfigPath);
+
+    const feathersConfigChanges = { use: { ['/'+options.name]: './'+relativeServiceConfigPath } };
+    const newFeathersConfig = merge(existingFeathersConfig, feathersConfigChanges);
+
+    debug(`serviceConfigPath is ${relativeServiceConfigPath}`);
 
     // write out new root config so service is bootstrapped (respect white space)
     fs.writeFile(feathersConfigPath, JSON.stringify(newFeathersConfig, null, 2), function(err) {
+      debug(`Successfully mounted "${options.name}" service to feathers at ${feathersConfigPath}`);
+
       for(var k in files) {
         files[k.replace('service', options.name)] = files[k];
-        delete files[k]
+        delete files[k];
       }
       done(err);
 
     });
 
   };
-};
+}

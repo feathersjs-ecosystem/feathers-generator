@@ -2,7 +2,7 @@ module.exports = function(config) {
   return {
     require: config.require,
     options: {
-      paginate: 'config.paginate',
+      paginate: config.paginate,
       Model: config.model
     },
     filter: {
