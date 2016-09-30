@@ -4,6 +4,7 @@ const debug = require('debug')('feathers-generator:service');
 // Metalsmith + middleware
 const Metalsmith = require('metalsmith');
 const mount = require('./middleware/mount');
+const rename = require('./middleware/rename');
 
 const json = require('../utils/json');
 //const ask = require('../utils/ask');
@@ -28,6 +29,7 @@ module.exports = function(prompt, done, options) {
       feathers: path.join(options.path, 'feathers.json')
     }))
     //.use(ask({ callback: prompt })) //disabled until more intelligent
+    .use(rename(options))
     .use(mount(options))
     .source(TEMPLATE_PATH)
     .destination(SERVICE_PATH)

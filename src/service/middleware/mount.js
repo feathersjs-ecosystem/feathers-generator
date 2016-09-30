@@ -28,18 +28,13 @@ export default function(options) {
     const feathersConfigChanges = { use: { ['/'+options.name]: './'+relativeServiceConfigPath } };
     const newFeathersConfig = merge(existingFeathersConfig, feathersConfigChanges);
 
-    debug(`serviceConfigPath is ${relativeServiceConfigPath}`);
 
     // write out new root config so service is bootstrapped (respect white space)
     fs.writeFile(feathersConfigPath, JSON.stringify(newFeathersConfig, null, 2), function(err) {
+      if(err){ return done(err); }
       debug(`Successfully mounted "${options.name}" service to feathers at ${feathersConfigPath}`);
-
-      for(var k in files) {
-        files[k.replace('service', options.name)] = files[k];
-        delete files[k];
-      }
-      done(err);
-
+      debug(`Service config can be found at ${relativeServiceConfigPath}`);
+      done();
     });
 
   };
