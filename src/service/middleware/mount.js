@@ -24,10 +24,8 @@ export default function(options) {
     // add new service to root config for bootstrapping
     const serviceConfigPath = path.resolve(options.path, options.name, options.name+'.json.js' );
     const relativeServiceConfigPath = path.relative(process.cwd(), serviceConfigPath);
-
     const feathersConfigChanges = { use: { ['/'+options.name]: './'+relativeServiceConfigPath } };
     const newFeathersConfig = merge(existingFeathersConfig, feathersConfigChanges);
-
 
     // write out new root config so service is bootstrapped (respect white space)
     fs.writeFile(feathersConfigPath, JSON.stringify(newFeathersConfig, null, 2), function(err) {

@@ -4,6 +4,7 @@ const debug = require('debug')('feathers-generator:service');
 // Metalsmith + middleware
 const Metalsmith = require('metalsmith');
 const mount = require('./middleware/mount');
+const copy = require('metalsmith-copy');
 const rename = require('./middleware/rename');
 
 const json = require('../utils/json');
@@ -29,6 +30,9 @@ module.exports = function(prompt, done, options) {
       feathers: path.join(options.path, 'feathers.json')
     }))
     //.use(ask({ callback: prompt })) //disabled until more intelligent
+    .clean(false)
+    // TODO @slajax - requires forked metalsmith-copy, until upstream npm publish
+    .use(copy({ pattern: 'hooks/*', directory: 'hooks', force: true }))
     .use(rename(options))
     .use(mount(options))
     .source(TEMPLATE_PATH)

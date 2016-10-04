@@ -7,6 +7,8 @@ module.exports = function(config) {
     },
     filter: {
       all: { require: `./${config.name}.filter` }
-    }
+    },
+    before: [{ require: './hooks/before' }],
+    after: [{ require: './hooks/after' }]
   };
 };

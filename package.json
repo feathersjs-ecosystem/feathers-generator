@@ -61,7 +61,7 @@
     "i": "^0.3.3",
     "lodash.merge": "^4.4.0",
     "metalsmith": "^2.1.0",
-    "metalsmith-copy": "^0.2.1",
+    "metalsmith-copy": "slajax/metalsmith-copy",
     "metalsmith-move-up": "^1.0.0",
     "object.assign": "^4.0.3",
     "recast": "^0.11.2",
