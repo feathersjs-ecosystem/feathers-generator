@@ -42,7 +42,7 @@ module.exports = function(prompt, done, options) {
         return done(error);
       }
 
-      const message = `Successfully generated "${options.name}" ${options.template} at ${SERVICE_PATH}`;
+      let message = `Successfully generated "${options.name}" ${options.template} at ${SERVICE_PATH}`;
       debug(message);
       done(null, message);
     });
