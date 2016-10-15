@@ -2,8 +2,8 @@ module.exports = function(config) {
   return {
     require: config.require,
     options: {
-      paginate: config.paginate,
-      Model: config.model
+      Model: `./${config.name}.model` ,
+      options: [config.model || {}]
     },
     filter: {
       all: { require: `./${config.name}.filter` }
