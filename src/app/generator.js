@@ -22,6 +22,7 @@ module.exports = function(prompt, done, options) {
   metalsmith
     .metadata({ options })
     // Read in any existing config files and attach to metadata
+    // TODO slajax or EK refactor option args into util fn so not duplicated
     .use(json({
       meta: path.resolve(__dirname, 'meta.json'),
       default: path.join(options.root, 'config', 'default.json'),
@@ -59,7 +60,7 @@ Great success! Your new app "${options.name}" has been created.
 
 Change to the directory by running 'cd ${options.root} start the app with 'npm start'.
 `;
-      
+
       install(options).then(() => done(null, message));
     });
 };

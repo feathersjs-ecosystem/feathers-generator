@@ -1,8 +1,10 @@
 {
   "port": 3030,
   "static": "./static",
-  "paginate": {
-    "default": 10,
-    "max": 25
+  "model": {
+    "paginate": {
+      "default": 10,
+      "max": 25
+    }
   }
 }
