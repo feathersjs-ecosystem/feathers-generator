@@ -3,32 +3,30 @@
  * the metalsmith metadata at the specified key
  */
 
-import path from 'path';
 import fs from 'fs-extra';
 import exists from './exists';
-import Debug from 'debug'
+import Debug from 'debug';
 
 const debug = Debug('feathers-generator');
 
-export default function(paths) {
-  return function json(files, metalsmith, done){
+export default function (paths) {
+  return function json (files, metalsmith, done) {
     const meta = metalsmith.metadata();
 
     for (let key of Object.keys(paths)) {
       const filepath = paths[key];
       meta[key] = {};
 
-      debug(`Attempting to read in ${filepath}`)
-      
+      debug(`Attempting to read in ${filepath}`);
+
       if (!exists(filepath)) {
         debug(`${filepath} does not exist`);
         continue;
       }
-      
+
       try {
         meta[key] = fs.readJsonSync(filepath);
-      }
-      catch(error) {
+      } catch (error) {
         debug(`Error reading ${filepath}`, error);
       }
     }
@@ -36,4 +34,4 @@ export default function(paths) {
     metalsmith.metadata(meta);
     done();
   };
-};
+}
