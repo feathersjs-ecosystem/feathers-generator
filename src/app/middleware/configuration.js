@@ -1,15 +1,15 @@
-import Debug from 'debug'
+import Debug from 'debug';
 import merge from 'lodash.merge';
 
-const debug = Debug('feathers-generator:configuration');
+const debug = Debug('feathers-generator:configuration'); // eslint-disable-line
 
 // TODO (EK): Handle config files
 // - plug in this.options in to template/config files
 // - Merge this.config with rendered config template
 // - write out updated config files to this.options.root/config
 
-export default function(options) {
-  return function configuration(files, metalsmith, done){
+export default function (options) {
+  return function configuration (files, metalsmith, done) {
     const meta = metalsmith.metadata();
     const { whitelist } = meta.answers;
     const existing = meta.default;
@@ -18,12 +18,10 @@ export default function(options) {
     if (template && template.contents) {
       try {
         template = JSON.parse(template.contents.toString());
-      }
-      catch(error) {
+      } catch (error) {
         return done(error);
       }
-    }
-    else {
+    } else {
       template = {};
     }
 
@@ -37,4 +35,4 @@ export default function(options) {
 
     done();
   };
-};
+}

@@ -15,7 +15,6 @@ const generators = {
   service
 };
 
-
 // TODO (EK): Check for args to see which type of generator we are going to call
 // 1. look up generator
 // 2. Read in existing config's
@@ -26,8 +25,7 @@ const generators = {
 // 6. re-write existing config, package.json and feathers.json files
 // 7. install npm modules
 
-
-export default function(prompt, done, options) {
+export default function (prompt, done, options) {
   if (!options.root) {
     throw new Error(`You must provide the project root directory path via 'options.root'`);
   }
