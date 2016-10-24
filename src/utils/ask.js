@@ -1,7 +1,7 @@
 import evaluate from './eval';
 
-export default function(options) {
-  return function ask(files, metalsmith, done){
+export default function (options) {
+  return function ask (files, metalsmith, done) {
     const metadata = metalsmith.metadata();
     const data = Object.assign({}, metadata);
 
@@ -29,8 +29,7 @@ export default function(options) {
           question.default = answers => {
             return evaluate(prompt.default, Object.assign({ answers }, data));
           };
-        }
-        else {
+        } else {
           question.default = data.options[prompt.name];
         }
 
@@ -43,26 +42,25 @@ export default function(options) {
         if (prompt.filter) {
           question.filter = input => {
             return evaluate(prompt.filter, Object.assign({ input }, data));
-          }
+          };
         }
 
         if (prompt.validate) {
           question.validate = input => {
             return evaluate(prompt.validate, Object.assign({ input }, data));
-          }
+          };
         }
 
         return question;
       });
 
-      options.callback(null, questions, function(answers) {
+      options.callback(null, questions, function (answers) {
         metalsmith.metadata(Object.assign(data, { answers }));
         done();
       });
-    }
-    catch(error) {
+    } catch (error) {
       options.callback(error);
       done(error);
     }
   };
-};
+}
