@@ -58,6 +58,7 @@
     "cross-spawn-async": "^2.1.9",
     "debug": "^2.2.0",
     "fs-extra": "^0.30.0",
+    "handlebars": "^4.0.5",
     "i": "^0.3.3",
     "lodash.merge": "^4.4.0",
     "metalsmith": "^2.1.0",

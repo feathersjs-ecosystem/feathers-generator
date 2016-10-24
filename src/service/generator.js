@@ -7,10 +7,11 @@ const mount = require('./middleware/mount');
 const copy = require('metalsmith-copy');
 const rename = require('./middleware/rename');
 
+const TEMPLATE_PATH = path.resolve(__dirname, 'templates');
+const render = require('./middleware/render');
+
 const json = require('../utils/json');
 //const ask = require('../utils/ask');
-
-const TEMPLATE_PATH = path.resolve(__dirname, 'templates');
 
 module.exports = function(prompt, done, options) {
 
@@ -29,14 +30,16 @@ module.exports = function(prompt, done, options) {
       pkg: path.join(options.root, 'package.json'),
       feathers: path.join(options.path, 'feathers.json')
     }))
+    .source(TEMPLATE_PATH)
+    .destination(SERVICE_PATH)
     //.use(ask({ callback: prompt })) //disabled until more intelligent
     .clean(false)
     // TODO @slajax - requires forked metalsmith-copy, until upstream npm publish
     .use(copy({ pattern: 'hooks/*', directory: 'hooks', force: true }))
     .use(rename(options))
     .use(mount(options))
-    .source(TEMPLATE_PATH)
-    .destination(SERVICE_PATH)
+    .use(render())
+    .use(function(){ console.log(arguments[0]); })
     .build(function(error){
       if(error) {
         return done(error);

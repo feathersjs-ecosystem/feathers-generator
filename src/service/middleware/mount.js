@@ -23,7 +23,7 @@ export default function(options) {
     let existingFeathersConfig = require(feathersConfigPath);
 
     // add new service to root config for bootstrapping
-    let serviceConfigPath = path.resolve(options.path, options.name, options.name+'.json.js' );
+    let serviceConfigPath = path.resolve(options.path, options.name, options.name+'.json' );
     let relativeServiceConfigPath = path.relative(feathersConfigDirname, serviceConfigPath);
     let feathersConfigChanges = { use: { ['/'+options.name]: { require: './'+relativeServiceConfigPath } } };
     let newFeathersConfig = merge(existingFeathersConfig, feathersConfigChanges);
