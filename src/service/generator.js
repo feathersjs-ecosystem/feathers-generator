@@ -17,6 +17,9 @@ module.exports = function (prompt, done, options) {
   const metalsmith = Metalsmith(TEMPLATE_PATH);
   const SERVICE_PATH = path.resolve(options.path, options.name);
 
+  debug('Service path: %s', SERVICE_PATH);
+  debug('Template path: %s', TEMPLATE_PATH);
+
   metalsmith
     .metadata({ options })
     // Read in any existing config files and attach to metadata
