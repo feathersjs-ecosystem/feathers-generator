@@ -1,22 +1,21 @@
 {
   "prompts": [
     {
-    "name": "model",
-    "type": "input",
-    "message": "What model would you like to use?",
-    "required": false
-    },
-    {
-    "name": "filter",
-    "type": "input",
-    "message": "What filters would you like to use?",
-    "required": false
-    },
-    {
-    "name": "hooks",
-    "type": "input",
-    "message": "What hooks would you like to use?",
-    "required": false
+      "name": "model",
+      "type": "list",
+      "message": "What model would you like to use?",
+      "choices": [
+        {
+          "name": "NeDB",
+          "value": "nedb",
+          "checked": true
+        },
+        {
+          "name": "MongoDB",
+          "value": "mongoose",
+          "checked": false
+        }
+      ]
     }
   ]
 }
