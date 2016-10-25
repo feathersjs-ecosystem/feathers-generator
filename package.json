@@ -74,7 +74,7 @@
     "i": "^0.3.3",
     "lodash.merge": "^4.4.0",
     "metalsmith": "^2.1.0",
-    "metalsmith-copy": "git+ssh://git@github.com:slajax/metalsmith-copy.git",
+    "metalsmith-copy": "^0.3.0",
     "metalsmith-move-up": "^1.0.0",
     "object.assign": "^4.0.3",
     "recast": "^0.11.2",
