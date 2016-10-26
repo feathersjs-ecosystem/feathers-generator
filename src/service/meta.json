@@ -7,8 +7,11 @@
       "choices": [
         {
           "name": "NeDB",
-          "value": "nedb",
-          "checked": true
+          "checked": true,
+          "value": {
+            "name": "nedb",
+            "deps": ["nedb", "feathers-nedb"]
+          }
         },
         {
           "name": "MongoDB",
