@@ -6,11 +6,14 @@ const debug = Debug('feathers-generator:rename');
 
 export default function (options) {
   return function mount (files, metalsmith, done) {
-    debug(`Re-naming service templates to "${options.name}"`);
 
     for (var k in files) {
-      files[k.replace('service', options.name)] = files[k];
-      delete files[k];
+      if(files[k] && k.indexOf('service') > -1) {
+        var newName = k.replace('service', options.name);
+        debug(`Re-naming template ${k} to ${newName}`);
+        files[k.replace('service', options.name)] = files[k];
+        delete files[k];
+      }
     }
     done();
   };

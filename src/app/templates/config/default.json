@@ -1,10 +1,11 @@
 {
   "port": 3030,
   "static": "./static",
-  "model": {
-    "paginate": {
-      "default": 10,
-      "max": 25
-    }
+  "nedb": {
+    "path": "data"
+  },
+  "paginate": {
+    "default": 10,
+    "max": 25
   }
 }

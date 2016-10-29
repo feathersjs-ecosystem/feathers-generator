@@ -65,10 +65,13 @@
   },
   "dependencies": {
     "ast-traverse": "^0.1.1",
+    "async": "^2.1.2",
     "chalk": "^1.1.1",
+    "consolidate": "^0.14.1",
     "cross-spawn-async": "^2.1.9",
     "debug": "^2.2.0",
     "fs-extra": "^0.30.0",
+    "handlebars": "^4.0.5",
     "i": "^0.3.3",
     "lodash.merge": "^4.4.0",
     "metalsmith": "^2.1.0",
