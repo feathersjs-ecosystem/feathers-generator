@@ -1,6 +1,6 @@
 import { spawn } from 'child_process';
 
-const path = require('path');
+// const path = require('path');
 const each = require('async').each;
 const match = require('multimatch');
 const debug = require('debug')('feathers-generator:model');
@@ -35,12 +35,13 @@ export default function (options) {
       }
     );
 
-    if (!deps || ~deps.length || typeof deps !== 'object') {
+    if (!deps || !deps.length || typeof deps !== 'object') {
+      debug('No deps found, skipping install...');
       return done();
     }
 
     let depNames = deps.join(' ');
-    let root = path.resolve(options.root, '../../');
+    let root = options.root.replace(options.path, '');
     debug(`Dependencies found, running: 'npm i --save ${depNames}' in ${root}`);
     const npm = spawn('npm', ['i', '--save', ...deps], {stdio: 'inherit', cwd: root});
 
