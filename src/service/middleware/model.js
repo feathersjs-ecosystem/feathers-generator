@@ -35,6 +35,10 @@ export default function (options) {
       }
     );
 
+    if (!deps || ~deps.length || typeof deps !== 'object') {
+      return done();
+    }
+
     let depNames = deps.join(' ');
     let root = path.resolve(options.root, '../../');
     debug(`Dependencies found, running: 'npm i --save ${depNames}' in ${root}`);

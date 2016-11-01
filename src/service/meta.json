@@ -14,9 +14,9 @@
           }
         },
         {
-          "name": "MongoDB",
-          "value": "mongoose",
-          "checked": false
+          "name": "Mongoose",
+          "checked": false,
+          "value": "mongoose"
         }
       ]
     }
