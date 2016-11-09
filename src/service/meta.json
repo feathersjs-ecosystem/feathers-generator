@@ -9,7 +9,7 @@
           "name": "Memory",
           "checked": false,
           "value": {
-            "name": "memory",
+            "name": "feathers-memory",
             "deps": ["feathers-memory"]
           }
         },
@@ -17,7 +17,7 @@
           "name": "NeDB",
           "checked": true,
           "value": {
-            "name": "nedb",
+            "name": "feathers-nedb",
             "deps": ["nedb", "feathers-nedb"]
           }
         }

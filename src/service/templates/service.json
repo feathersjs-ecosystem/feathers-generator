@@ -1,10 +1,10 @@
 {
-  "require": "feathers-{{answers.model.name}}",
+  "require": "{{answers.model.name}}",
   "options": [{
     "paginate": "config.paginate",
     "Model": {
       "require": "./test.model",
-      "options": [{ "path": "{{answers.model.name}}", "db": "{{options.name}}" }]
+      "options": [{ "path": "config.{{answers.model.name}}.path", "db": "{{options.name}}" }]
     }
   }],
   "filter": {
