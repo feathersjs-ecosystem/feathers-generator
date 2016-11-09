@@ -1,0 +1,10 @@
+{
+  "require": "feathers-memory",
+  "options": {
+    "Model": {
+      "require": "./service.model",
+      "options": { }
+    },
+    "paginate": "config.paginate"
+  }
+}
