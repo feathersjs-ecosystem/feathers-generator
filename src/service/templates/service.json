@@ -1,10 +1,10 @@
 {
-  "require": "feathers-nedb",
+  "require": "feathers-{{answers.model.name}}",
   "options": [{
     "paginate": "config.paginate",
     "Model": {
       "require": "./test.model",
-      "options": [{ "path": "config.nedb.path", "db": "{{options.name}}" }]
+      "options": [{ "path": "{{answers.model.name}}", "db": "{{options.name}}" }]
     }
   }],
   "filter": {

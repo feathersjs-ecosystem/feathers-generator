@@ -6,17 +6,20 @@
       "message": "What model would you like to use?",
       "choices": [
         {
+          "name": "Memory",
+          "checked": false,
+          "value": {
+            "name": "memory",
+            "deps": ["feathers-memory"]
+          }
+        },
+        {
           "name": "NeDB",
           "checked": true,
           "value": {
             "name": "nedb",
             "deps": ["nedb", "feathers-nedb"]
           }
-        },
-        {
-          "name": "Mongoose",
-          "checked": false,
-          "value": "mongoose"
         }
       ]
     }
