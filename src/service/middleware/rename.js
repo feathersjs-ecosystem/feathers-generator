@@ -5,7 +5,7 @@ const debug = require('debug')('feathers-generator:rename');
 export default function (options) {
   return function rename (files, metalsmith, done) {
     const meta = metalsmith.metadata();
-    let model = meta.answers.model.name;
+    let model = meta.answers.model.template;
 
     each(
       Object.keys(files),

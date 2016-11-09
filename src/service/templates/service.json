@@ -1,13 +1,16 @@
 {
-  "require": "{{answers.model.name}}",
+  "require": "{{answers.model.require}}",
   "options": [{
-    "paginate": "config.paginate",
     "Model": {
-      "require": "./test.model",
-      "options": [{ "path": "config.{{answers.model.name}}.path", "db": "{{options.name}}" }]
-    }
+      "require": "./{{options.name}}.model",
+      "options": []
+    },
+    "paginate": "config.paginate"
   }],
   "filter": {
-    "all": { "require": "./test.filter", "options": [] }
+    "all": {
+      "require": "./{{options.name}}.filter",
+      "options": []
+    }
   }
 }
