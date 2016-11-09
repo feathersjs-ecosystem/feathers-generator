@@ -1,20 +1,32 @@
-import Debug from 'debug';
-
-const debug = Debug('feathers-generator:rename');
-
-// Add to use property on feathers.json if --mount defined
+const each = require('async').each;
+const match = require('multimatch');
+const debug = require('debug')('feathers-generator:rename');
 
 export default function (options) {
-  return function mount (files, metalsmith, done) {
+  return function rename (files, metalsmith, done) {
+    const meta = metalsmith.metadata();
+    let model = meta.answers.model.name;
 
-    for (var k in files) {
-      if(files[k] && k.indexOf('service') > -1) {
-        var newName = k.replace('service', options.name);
-        debug(`Re-naming template ${k} to ${newName}`);
-        files[k.replace('service', options.name)] = files[k];
-        delete files[k];
+    each(
+      Object.keys(files),
+      function (file, next) {
+        if (match(file, ['service.json', 'service.*.js']).length) {
+          let newName = file.replace('service', options.name);
+          debug(`Renaming template ${file} to ${newName}`);
+          files[newName] = files[file];
+          delete files[file];
+        }
+
+        if (match(file, `models/${model}/**/*.js`).length) {
+          let newModelName = file.replace(`models/${model}/templates/service`, options.name);
+          debug(`Renaming template ${file} to ${newModelName}`);
+          files[newModelName] = files[file];
+          delete files[file];
+        }
+        next();
       }
-    }
+    );
+
     done();
   };
 }
