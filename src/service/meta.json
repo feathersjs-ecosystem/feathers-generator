@@ -31,8 +31,16 @@
             "require": "feathers-mongoose",
             "deps": ["mongoose", "feathers-mongoose"]
           }
+        },
+        {
+          "name": "None",
+          "checked": false,
+          "value": {
+            "template": false,
+            "require": false,
+            "deps": false
+          }
         }
-
       ]
     }
   ]

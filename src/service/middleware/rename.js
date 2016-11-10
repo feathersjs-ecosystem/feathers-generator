@@ -5,7 +5,6 @@ const debug = require('debug')('feathers-generator:rename');
 export default function (options) {
   return function rename (files, metalsmith, done) {
     const meta = metalsmith.metadata();
-    let model = meta.answers.model.template;
 
     each(
       Object.keys(files),
@@ -17,6 +16,10 @@ export default function (options) {
           delete files[file];
         }
 
+        // skip if no model selected
+        if(meta.answers.model === false) return next();
+
+        let model = meta.answers.model.template;
         if (match(file, `models/${model}/**/*.js`).length) {
           let newModelName = file.replace(`models/${model}/templates/service`, options.name);
           debug(`Renaming template ${file} to ${newModelName}`);

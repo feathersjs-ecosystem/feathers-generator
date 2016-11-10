@@ -8,6 +8,10 @@ const debug = require('debug')('feathers-generator:model');
 export default function (options) {
   return function mount (files, metalsmith, done) {
     const meta = metalsmith.metadata();
+
+    // no model selected
+    if(meta.answers.model === false) return done();
+
     let model = meta.answers.model.template;
     let deps = meta.answers.model.deps;
 
