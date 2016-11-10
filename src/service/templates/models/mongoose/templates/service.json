@@ -1,7 +1,16 @@
 {
-  "require": "feathers-mongoose",
-  "options": {
-    "model": "./{{options.name}}.model",
+  "require": "{{answers.model.require}}",
+  "options": [{
+    "Model": {
+      "require": "./{{options.name}}.model",
+      "options": [{  }]
+    },
     "paginate": "config.paginate"
+  }],
+  "filter": {
+    "all": {
+      "require": "./{{options.name}}.filter",
+      "options": []
+    }
   }
 }

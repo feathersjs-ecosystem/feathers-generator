@@ -1,10 +1,16 @@
 {
-  "require": "feathers-memory",
-  "options": {
+  "require": "{{answers.model.require}}",
+  "options": [{
     "Model": {
       "require": "./{{options.name}}.model",
-      "options": { }
+      "options": []
     },
     "paginate": "config.paginate"
+  }],
+  "filter": {
+    "all": {
+      "require": "./{{options.name}}.filter",
+      "options": []
+    }
   }
 }
