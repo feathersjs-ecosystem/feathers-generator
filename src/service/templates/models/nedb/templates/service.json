@@ -6,7 +6,6 @@
       "options": [{
         "db": "{{options.name}}",
         "path": "config.{{answers.model.template}}.path"
-
       }]
     },
     "paginate": "config.paginate"

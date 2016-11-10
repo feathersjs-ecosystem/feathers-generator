@@ -20,7 +20,7 @@ export default function (options) {
         if(meta.answers.model === false) return next();
 
         let model = meta.answers.model.template;
-        if (match(file, `models/${model}/**/*.js`).length) {
+        if (match(file, `models/${model}/templates/*.*`).length) {
           let newModelName = file.replace(`models/${model}/templates/service`, options.name);
           debug(`Renaming template ${file} to ${newModelName}`);
           files[newModelName] = files[file];

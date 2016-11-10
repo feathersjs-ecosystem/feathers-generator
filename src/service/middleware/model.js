@@ -9,9 +9,6 @@ export default function (options) {
   return function mount (files, metalsmith, done) {
     const meta = metalsmith.metadata();
 
-    // no model selected
-    if(meta.answers.model === false) return done();
-
     let model = meta.answers.model.template;
     let deps = meta.answers.model.deps;
 
@@ -25,7 +22,7 @@ export default function (options) {
         }
 
         // filter out non-selected models
-        if (!match(file, `models/${model}/**/*.js`).length) {
+        if (!match(file, `models/${model}/templates/*.*`).length) {
           debug(`filtering out ${file}`);
           delete files[file];
         }
