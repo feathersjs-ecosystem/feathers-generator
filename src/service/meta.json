@@ -7,9 +7,10 @@
       "choices": [
         {
           "name": "Memory",
-          "checked": false,
+          "checked": true,
           "value": {
-            "name": "feathers-memory",
+            "template": "memory",
+            "require": "feathers-memory",
             "deps": ["feathers-memory"]
           }
         },
@@ -17,8 +18,27 @@
           "name": "NeDB",
           "checked": true,
           "value": {
-            "name": "feathers-nedb",
+            "template": "nedb",
+            "require": "feathers-nedb",
             "deps": ["nedb", "feathers-nedb"]
+          }
+        },
+        {
+          "name": "Mongoose",
+          "checked": false,
+          "value": {
+            "template": "mongoose",
+            "require": "feathers-mongoose",
+            "deps": ["mongoose", "feathers-mongoose"]
+          }
+        },
+        {
+          "name": "None",
+          "checked": false,
+          "value": {
+            "template": false,
+            "require": false,
+            "deps": false
           }
         }
       ]
