@@ -33,8 +33,7 @@
     "url": "https://github.com/feathersjs/feathers-generator/issues"
   },
   "engines": {
-    "node": ">=5.0.0",
-    "npm": ">=3.8.0"
+    "node": ">= 4"
   },
   "scripts": {
     "prepublish": "npm run compile",
