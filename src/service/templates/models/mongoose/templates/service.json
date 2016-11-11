@@ -3,7 +3,10 @@
   "options": [{
     "Model": {
       "require": "./{{options.name}}.model",
-      "options": [{  }]
+      "options": [{
+        "collection": "{{options.name}}",
+        "path": "config.{{answers.model.template}}.path"
+      }]
     },
     "paginate": "config.paginate"
   }],
