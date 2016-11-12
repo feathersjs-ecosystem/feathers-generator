@@ -39,9 +39,9 @@ module.exports = function (prompt, done, options) {
     .use(ask({ callback: prompt }))
     .use(copy({ pattern: 'hooks/*', directory: 'hooks', force: true }))
     .use(model(options)) // filter out unneeded models
-    .use(rename(options))
-    .use(mount(options))
-    .use(render())
+    .use(rename(options)) // rename files for convention
+    .use(mount(options)) // mount service for bootstrap
+    .use(render()) // pass files through handlebars templating
     .build(function (error) {
       if (error) {
         return done(error);
