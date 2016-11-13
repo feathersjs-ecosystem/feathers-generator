@@ -10,6 +10,12 @@
     },
     "paginate": "config.paginate"
   }],
+  "before":{
+    "all": [{ "require": "./hooks/before", "options": [] }]
+  },
+  "after":{
+    "all": [{ "require": "./hooks/after", "options": [] }]
+  },
   "filter": {
     "all": {
       "require": "./{{options.name}}.filter",
