@@ -1,0 +1,7 @@
+{
+  "prompts": {
+    "whenNot": "config.rethinkdb.db",
+    "name": "config.rethinkdb.db",
+    "description": "What database do you want to use?"
+  }
+}

@@ -33,6 +33,15 @@
           }
         },
         {
+          "name": "RethinkDB",
+          "checked": false,
+          "value": {
+            "template": "rethinkdb",
+            "require": "feathers-rethinkdb",
+            "deps": ["rethinkdbdash", "feathers-rethinkdb"]
+          }
+        },
+        {
           "name": "None",
           "checked": false,
           "value": {

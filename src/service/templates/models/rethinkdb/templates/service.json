@@ -1,0 +1,26 @@
+{
+  "require": "{{answers.model.require}}",
+  "options": [{
+    "name":"{{options.name}}",
+    "Model": {
+      "require": "./{{options.name}}.model",
+      "options": [{
+        "table":"{{options.name}}",
+        "db": "config.{{answers.model.template}}.db"
+      }]
+    },
+    "paginate": "config.paginate"
+  }],
+  "before":{
+    "all": [{ "require": "./hooks/before", "options": [] }]
+  },
+  "after":{
+    "all": [{ "require": "./hooks/after", "options": [] }]
+  },
+  "filter": {
+    "all": {
+      "require": "./{{options.name}}.filter",
+      "options": []
+    }
+  }
+}
