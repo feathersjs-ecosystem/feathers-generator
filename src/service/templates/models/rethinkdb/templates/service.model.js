@@ -17,8 +17,8 @@ module.exports = function (options) {
         .do(tableExists => r.branch( tableExists, {created: 0}, r.tableCreate(options.table))).run();
     })
     .then(() => {
-      console.log(`RethinkDB ${options.db}.${options.table} now exists`);
-      console.log(`You can remove this database initiation code now.`);
+      console.log(`RethinkDB ${options.db}.${options.table} has been created.`);
+      console.log(`You should remove database initiation in ${__filename} now.`);
     })
     .catch(err => console.log(err.msg));
   // -->
