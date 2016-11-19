@@ -1,14 +1,8 @@
 {
-  "require": "{{answers.model.require}}",
+  "require": "./{{options.name}}.model",
   "options": [{
-    "name":"{{options.name}}",
-    "Model": {
-      "require": "./{{options.name}}.model",
-      "options": [{
-        "table":"{{options.name}}",
-        "db": "config.{{answers.model.template}}.db"
-      }]
-    },
+    "db": "config.{{answers.model.template}}.db",
+    "table":"{{options.name}}",
     "paginate": "config.paginate"
   }],
   "before":{

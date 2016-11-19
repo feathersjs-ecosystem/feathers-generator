@@ -1,27 +1,26 @@
-const path = require('path');
-const rethink = require('rethinkdbdash');
+const client = require('rethinkdbdash');
+const service = require('feathers-rethinkdb');
 
 module.exports = function (options) {
-
-  // Create a rethinkdb instance
-  const r = rethink({
-    db: options.db // @slajax todo: add servers to config
+  // Create a rethinkdb connection
+  // @slajax: add servers to rethink client
+  const model = client({ db: options.db });
+  var rethink = service({
+    Model: model,
+    name: options.table,
+    paginate: options.paginate
   });
 
-  // <!--- This code can be removed!
-  // All it does is set up your DB table.
-  r.dbList().contains(options.db) // create db if not exists
-    .do(dbExists => r.branch(dbExists, {created: 0}, r.dbCreate(options.db))).run()
-    .then(() => {
-      return r.db(options.db).tableList().contains(options.table) //create table if not exists
-        .do(tableExists => r.branch( tableExists, {created: 0}, r.tableCreate(options.table))).run();
-    })
+  // <!-- init block
+  return rethink
+    .createTable(options.table)
     .then(() => {
       console.log(`RethinkDB ${options.db}.${options.table} has been created.`);
-      console.log(`You should remove database initiation in ${__filename} now.`);
+      console.log(`You should remove the "init block" in ${__filename} now.`);
+      return rethink;
     })
-    .catch(err => console.log(err.msg));
-  // -->
+    .catch(err => console.log('rethinkdb init failed:', err.msg));
+  // init block -->
 
-  return r;
+  // return rethink; // uncomment, when removing init block
 };
