@@ -13,7 +13,7 @@ module.exports = function (options) {
 
   // <!-- init block
   return rethink
-    .createTable(options.table)
+    .init(options.table)
     .then(() => {
       console.log(`RethinkDB ${options.db}.${options.table} has been created.`);
       console.log(`You should remove the "init block" in ${__filename} now.`);
