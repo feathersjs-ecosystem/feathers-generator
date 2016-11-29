@@ -1,4 +1,7 @@
+
 import evaluate from './eval';
+
+const debug = require('debug')('feathers-generator:ask');
 
 export default function (options) {
   return function ask (files, metalsmith, done) {
@@ -59,6 +62,7 @@ export default function (options) {
         done();
       });
     } catch (error) {
+      debug(error.stack);
       options.callback(error);
       done(error);
     }
