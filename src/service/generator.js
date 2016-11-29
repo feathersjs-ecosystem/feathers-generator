@@ -17,6 +17,8 @@ const mount = require('../utils/mount');
 module.exports = function (prompt, done, options) {
   const metalsmith = Metalsmith(TEMPLATE_PATH);
   const SERVICE_PATH = path.resolve(options.path, options.name);
+  const MOUNT_PATH = options.mount || 'server/feathers.json';
+  const CONFIG_PATH = options.config || 'config';
 
   debug('Service path: %s', SERVICE_PATH);
   debug('Template path: %s', TEMPLATE_PATH);
@@ -27,11 +29,11 @@ module.exports = function (prompt, done, options) {
     // TODO slajax or EK refactor option args into util fn so not duplicated
     .use(json({
       meta: path.resolve(__dirname, 'meta.json'),
-      default: path.join(options.root, 'config', 'default.json'),
-      staging: path.join(options.root, 'config', 'staging.json'),
-      production: path.join(options.root, 'config', 'production.json'),
-      pkg: path.join(options.root, 'package.json'),
-      feathers: path.join(options.path, 'feathers.json')
+      default: path.join(options.root, CONFIG_PATH, 'default.json'),
+      staging: path.join(options.root, CONFIG_PATH, 'staging.json'),
+      production: path.join(options.root, CONFIG_PATH, 'production.json'),
+      feathers: path.join(options.root, MOUNT_PATH),
+      pkg: path.join(options.root, 'package.json')
     }))
     .clean(false)
     .source(TEMPLATE_PATH)

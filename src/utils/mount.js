@@ -18,6 +18,8 @@ export default function (options) {
     // load existing root config
     let feathersConfigPath = path.resolve(options.mount);
     let feathersConfigDirname = path.dirname(feathersConfigPath);
+
+    debug(`Attempting to require feathers bootstrap at ${feathersConfigPath}`);
     let existingFeathersConfig = require(feathersConfigPath);
 
     // add new service to root config for bootstrapping
@@ -26,9 +28,14 @@ export default function (options) {
     let feathersConfigChanges = { use: { ['/' + options.name]: { require: './' + relativeServiceConfigPath } } };
     let newFeathersConfig = merge(existingFeathersConfig, feathersConfigChanges);
 
+    debug(`Attempting to mount ${options.name} service to feathers at ${feathersConfigPath}`);
+
     // write out new root config so service is bootstrapped (respect white space)
     fs.writeFile(feathersConfigPath, JSON.stringify(newFeathersConfig, null, 2), function (err) {
-      if (err) { return done(err); }
+      if (err) {
+        debug(err.stack);
+        return done(err);
+      }
       debug(`Successfully mounted "${options.name}" service to feathers at ${feathersConfigPath}`);
       debug(`Service config can be found at ${relativeServiceConfigPath}`);
       done();

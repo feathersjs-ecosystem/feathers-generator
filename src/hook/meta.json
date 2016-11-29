@@ -6,11 +6,11 @@
       "message": "When would you like this hook execute?",
       "choices": [
         {
-          "name": "Before the service",
+          "name": "Before the service runs",
           "value": "before"
         },
         {
-          "name": "After the service",
+          "name": "After the service runs",
           "value": "after"
         }
       ]

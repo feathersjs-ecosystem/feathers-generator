@@ -8,6 +8,8 @@ export default function (options) {
     const metadata = metalsmith.metadata();
     const data = Object.assign({}, metadata);
 
+    console.log(metadata);
+
     try {
       const questions = metadata.meta.prompts.map(prompt => {
         const question = Object.assign({}, prompt);
