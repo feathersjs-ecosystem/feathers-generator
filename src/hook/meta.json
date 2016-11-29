@@ -1,3 +1,19 @@
 {
-  "prompts": []
+  "prompts": [
+    {
+      "name": "binding",
+      "type": "checkbox",
+      "message": "When would you like this hook execute?",
+      "choices": [
+        {
+          "name": "Before the service",
+          "value": "before"
+        },
+        {
+          "name": "After the service",
+          "value": "after"
+        }
+      ]
+    }
+  ]
 }
