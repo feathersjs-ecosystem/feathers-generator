@@ -1,7 +1,7 @@
 const assert = require('assert');
-const createHook = require('./{{name}}');
+const createHook = require('./{{options.name}}');
 
-describe('{{name}} hook tests', function() {
+describe('{{options.name}} hook tests', function() {
   it('hook ran', function() {
     const hook = createHook();
 
