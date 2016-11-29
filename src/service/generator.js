@@ -3,16 +3,16 @@ const debug = require('debug')('feathers-generator:service');
 
 // Metalsmith + middleware
 const Metalsmith = require('metalsmith');
-const mount = require('./middleware/mount');
 const copy = require('metalsmith-copy');
-const rename = require('./middleware/rename');
 const model = require('./middleware/model');
 
 const TEMPLATE_PATH = path.resolve(__dirname, 'templates');
-const render = require('./middleware/render');
+const render = require('../utils/render');
 
 const json = require('../utils/json');
 const ask = require('../utils/ask');
+const rename = require('../utils/rename');
+const mount = require('../utils/mount');
 
 module.exports = function (prompt, done, options) {
   const metalsmith = Metalsmith(TEMPLATE_PATH);
