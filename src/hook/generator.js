@@ -7,7 +7,6 @@ const Metalsmith = require('metalsmith');
 
 const TEMPLATE_PATH = path.resolve(__dirname, 'templates');
 const render = require('../utils/render');
-
 const json = require('../utils/json');
 const ask = require('../utils/ask');
 
@@ -15,7 +14,8 @@ import { hooks as rename } from '../utils/rename';
 
 module.exports = function (prompt, done, options) {
   const metalsmith = Metalsmith(TEMPLATE_PATH);
-  const SERVICE_PATH = path.resolve(options.path, 'hooks');
+  const SERVICE_PATH = path.resolve(options.path);
+  const HOOK_PATH = path.resolve(SERVICE_PATH, 'hooks');
   const MOUNT_PATH = options.mount || 'server/feathers.json';
   const CONFIG_PATH = options.config || 'config';
 
@@ -36,7 +36,7 @@ module.exports = function (prompt, done, options) {
     }))
     .clean(false)
     .source(TEMPLATE_PATH)
-    .destination(SERVICE_PATH)
+    .destination(HOOK_PATH)
     .use(ask({ callback: prompt }))
     .use(rename(options)) // rename files for convention
     // .use(mount(options)) // mount service for bootstrap
@@ -46,7 +46,7 @@ module.exports = function (prompt, done, options) {
         return done(error);
       }
 
-      let message = `Successfully generated "${options.name}" ${options.template} at ${SERVICE_PATH}`;
+      let message = `Successfully generated "${options.name}" ${options.template} at ${HOOK_PATH}`;
       debug(message);
       done(null, message);
     });
