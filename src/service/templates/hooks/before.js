@@ -9,6 +9,6 @@ module.exports = function() {
 
   return function(hook) {
     // do something here
-    console.log(`{{options.name}} before hook executed`);
+    console.log(`default {{options.name}} before hook executed`);
   };
 };

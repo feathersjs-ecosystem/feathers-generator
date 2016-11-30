@@ -11,16 +11,22 @@ const json = require('../utils/json');
 const ask = require('../utils/ask');
 
 import { hooks as rename } from '../utils/rename';
+import { hooks as mount } from '../utils/mount';
 
 module.exports = function (prompt, done, options) {
   const metalsmith = Metalsmith(TEMPLATE_PATH);
   const SERVICE_PATH = path.resolve(options.path);
   const HOOK_PATH = path.resolve(SERVICE_PATH, 'hooks');
+  const FEATHERS_PATH = 'server/feathers.json';
   const MOUNT_PATH = options.mount || 'server/feathers.json';
   const CONFIG_PATH = options.config || 'config';
 
   debug('Template path: %s', TEMPLATE_PATH);
   debug('Service path: %s', SERVICE_PATH);
+  debug('Hook path: %s', HOOK_PATH);
+  debug('Feathers path: %s', FEATHERS_PATH);
+  debug('Mount path: %s', MOUNT_PATH);
+  debug('Config path: %s', CONFIG_PATH);
 
   metalsmith
     .metadata({ options })
@@ -31,7 +37,8 @@ module.exports = function (prompt, done, options) {
       default: path.join(options.root, CONFIG_PATH, 'default.json'),
       staging: path.join(options.root, CONFIG_PATH, 'staging.json'),
       production: path.join(options.root, CONFIG_PATH, 'production.json'),
-      feathers: path.join(options.path, MOUNT_PATH),
+      feathers: path.join(options.root, FEATHERS_PATH),
+      service: path.join(options.root, MOUNT_PATH),
       pkg: path.join(options.root, 'package.json')
     }))
     .clean(false)
@@ -39,7 +46,7 @@ module.exports = function (prompt, done, options) {
     .destination(HOOK_PATH)
     .use(ask({ callback: prompt }))
     .use(rename(options)) // rename files for convention
-    // .use(mount(options)) // mount service for bootstrap
+    .use(mount(options)) // mount service for bootstrap
     .use(render()) // pass files through handlebars templating
     .build(function (error) {
       if (error) {

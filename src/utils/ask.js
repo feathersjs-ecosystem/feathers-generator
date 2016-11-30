@@ -8,7 +8,6 @@ export default function (options) {
     const metadata = metalsmith.metadata();
     const data = Object.assign({}, metadata);
 
-    console.log(metadata);
 
     try {
       const questions = metadata.meta.prompts.map(prompt => {
@@ -61,6 +60,8 @@ export default function (options) {
 
       options.callback(null, questions, function (answers) {
         metalsmith.metadata(Object.assign(data, { answers }));
+        debug('Here is the metadata being used to generate your hook:');
+        debug(metadata);
         done();
       });
     } catch (error) {

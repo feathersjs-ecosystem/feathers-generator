@@ -10,9 +10,9 @@ const TEMPLATE_PATH = path.resolve(__dirname, 'templates');
 const render = require('../utils/render');
 const json = require('../utils/json');
 const ask = require('../utils/ask');
-const mount = require('../utils/mount');
 
 import { services as rename } from '../utils/rename';
+import { services as mount } from '../utils/mount';
 
 module.exports = function (prompt, done, options) {
   const metalsmith = Metalsmith(TEMPLATE_PATH);

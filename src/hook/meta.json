@@ -7,13 +7,51 @@
       "choices": [
         {
           "name": "Before the service runs",
-          "value": "before"
+          "value": "before",
+          "checked": true
         },
         {
           "name": "After the service runs",
           "value": "after"
         }
       ]
+    },
+    {
+      "name": "method",
+      "type": "checkbox",
+      "message": "What actions(s) would you like this hook to execute on?",
+      "choices": [
+        {
+          "name": "all",
+          "value": "all",
+          "checked": true
+        },
+        {
+          "name": "get",
+          "value": "get"
+        },
+        {
+          "name": "find",
+          "value": "find"
+        },
+        {
+          "name": "create",
+          "value": "create"
+        },
+        {
+          "name": "update",
+          "value": "update"
+        },
+        {
+          "name": "patch",
+          "value": "patch"
+        },
+        {
+          "name": "remove",
+          "value": "remove"
+        }
+      ]
     }
+
   ]
 }
