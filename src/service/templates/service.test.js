@@ -1,13 +1,13 @@
 const assert = require('assert');
 const app = require('../app');
 
-describe('<%= name %> service tests', function() {
+describe('{{options.name}} service tests', function() {
   before(function(done) {
     // Wait for application bootstrap before running any tests
     app.bootstrap.then(done).catch(done);
   });
 
   it('initialized the service', function() {
-    assert.ok(app.service('<%= name %>'));
+    assert.ok(app.service('{{options.name}}'));
   });
 });
