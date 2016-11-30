@@ -4,14 +4,14 @@ const debug = require('debug')('feathers-generator:hook');
 // Metalsmith + middleware
 const Metalsmith = require('metalsmith');
 // const mount = require('./middleware/mount');
-// const rename = require('./middleware/rename');
-// const model = require('./middleware/model');
 
 const TEMPLATE_PATH = path.resolve(__dirname, 'templates');
 const render = require('../utils/render');
 
 const json = require('../utils/json');
 const ask = require('../utils/ask');
+
+import { hooks as rename } from '../utils/rename';
 
 module.exports = function (prompt, done, options) {
   const metalsmith = Metalsmith(TEMPLATE_PATH);
@@ -38,8 +38,7 @@ module.exports = function (prompt, done, options) {
     .source(TEMPLATE_PATH)
     .destination(SERVICE_PATH)
     .use(ask({ callback: prompt }))
-    // .use(model(options)) // filter out unneeded models
-    // .use(rename(options)) // rename files for convention
+    .use(rename(options)) // rename files for convention
     // .use(mount(options)) // mount service for bootstrap
     .use(render()) // pass files through handlebars templating
     .build(function (error) {

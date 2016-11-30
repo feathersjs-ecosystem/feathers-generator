@@ -11,8 +11,9 @@ const render = require('../utils/render');
 
 const json = require('../utils/json');
 const ask = require('../utils/ask');
-const rename = require('../utils/rename');
 const mount = require('../utils/mount');
+
+import { services as rename } from '../utils/rename';
 
 module.exports = function (prompt, done, options) {
   const metalsmith = Metalsmith(TEMPLATE_PATH);
