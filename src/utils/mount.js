@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import Debug from 'debug';
-import merge from 'lodash.merge';
+import merge from 'object.assign';
 
 let debug = Debug('feathers-generator:mount');
 
@@ -66,15 +66,14 @@ export function hooks (options) {
       metadata.answers.method.map((m) => {
         debug(`Compiling changes for ${b} bindings and ${m} method`);
 
-        if (typeof serviceConfigChanges[b][m] === 'undefined') {
-          serviceConfigChanges[b][m] = [];
-        }
-
         let hook = {
           require: './hooks/' + options.name + '.js',
           options: []
         };
 
+        if (typeof serviceConfigChanges[b][m] === 'undefined') {
+          serviceConfigChanges[b][m] = [];
+        }
         serviceConfigChanges[b][m].push(hook);
       });
     });
