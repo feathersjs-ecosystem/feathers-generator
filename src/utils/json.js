@@ -7,9 +7,10 @@ import fs from 'fs-extra';
 import exists from './exists';
 import Debug from 'debug';
 
-const debug = Debug('feathers-generator');
+const debug = Debug('feathers-generator:json');
 
 export default function (paths) {
+
   return function json (files, metalsmith, done) {
     const meta = metalsmith.metadata();
 

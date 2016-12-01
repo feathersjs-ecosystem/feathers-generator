@@ -2,7 +2,7 @@ const each = require('async').each;
 const match = require('multimatch');
 const debug = require('debug')('feathers-generator:rename');
 
-export default function (options) {
+export function services (options) {
   return function rename (files, metalsmith, done) {
     const meta = metalsmith.metadata();
 
@@ -17,7 +17,9 @@ export default function (options) {
         }
 
         // skip if no model selected
-        if(meta.answers.model === false) return next();
+        if (meta.answers.model === false) {
+          return next();
+        }
 
         let model = meta.answers.model.template;
         if (match(file, `models/${model}/templates/*.*`).length) {
@@ -27,6 +29,24 @@ export default function (options) {
           delete files[file];
         }
         next();
+      }
+    );
+
+    done();
+  };
+}
+
+export function hooks (options) {
+  return function rename (files, metalsmith, done) {
+    each(
+      Object.keys(files),
+      function (file, next) {
+        if (match(file, ['*.js']).length) {
+          let newName = file.replace('hook', options.name);
+          debug(`Renaming template ${file} to ${newName}`);
+          files[newName] = files[file];
+          delete files[file];
+        }
       }
     );
 

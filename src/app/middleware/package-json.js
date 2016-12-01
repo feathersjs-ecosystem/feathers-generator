@@ -57,10 +57,10 @@ export default function (options) {
     // Scripts
     if (babel) {
       template.scripts.start = `babel-node index.js`;
-      template.scripts.mocha = `mocha test/ --compilers js:babel-core/register --recursive`;
+      template.scripts.mocha = `NODE_ENV=testing mocha {test/,server/**/*.test.js,server/**/**/*.test.js} --compilers js:babel-core/register --recursive`;
     } else {
       template.scripts.start = `node index.js`;
-      template.scripts.mocha = `mocha test/ --recursive`;
+      template.scripts.mocha = `NODE_ENV=testing mocha {test/,server/**/*.test.js,server/**/**/*.test.js} --recursive`;
     }
 
     switch (linter) {

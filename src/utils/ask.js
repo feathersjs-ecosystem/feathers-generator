@@ -1,9 +1,13 @@
+
 import evaluate from './eval';
+
+const debug = require('debug')('feathers-generator:ask');
 
 export default function (options) {
   return function ask (files, metalsmith, done) {
     const metadata = metalsmith.metadata();
     const data = Object.assign({}, metadata);
+
 
     try {
       const questions = metadata.meta.prompts.map(prompt => {
@@ -56,9 +60,12 @@ export default function (options) {
 
       options.callback(null, questions, function (answers) {
         metalsmith.metadata(Object.assign(data, { answers }));
+        debug('Here is the metadata being used to generate your hook:');
+        debug(metadata);
         done();
       });
     } catch (error) {
+      debug(error.stack);
       options.callback(error);
       done(error);
     }
