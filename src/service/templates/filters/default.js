@@ -14,4 +14,4 @@ module.exports = function () {
     log(`{{options.name}} filter returned: true`);
     return true;
   };
-}
+};

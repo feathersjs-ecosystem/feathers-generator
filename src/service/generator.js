@@ -40,6 +40,7 @@ module.exports = function (prompt, done, options) {
     .destination(SERVICE_PATH)
     .use(ask({ callback: prompt }))
     .use(copy({ pattern: 'hooks/*', directory: 'hooks', force: true }))
+    .use(copy({ pattern: 'filters/*', directory: 'filters', force: true }))
     .use(model(options)) // filter out unneeded models
     .use(rename(options)) // rename files for convention
     .use(mount(options)) // mount service for bootstrap

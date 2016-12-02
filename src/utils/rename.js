@@ -53,3 +53,21 @@ export function hooks (options) {
     done();
   };
 }
+
+export function filters (options) {
+  return function rename (files, metalsmith, done) {
+    each(
+      Object.keys(files),
+      function (file, next) {
+        if (match(file, ['*.js']).length) {
+          let newName = file.replace('hook', options.name);
+          debug(`Renaming template ${file} to ${newName}`);
+          files[newName] = files[file];
+          delete files[file];
+        }
+      }
+    );
+
+    done();
+  };
+}

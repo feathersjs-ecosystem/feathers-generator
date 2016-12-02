@@ -13,7 +13,7 @@
   },
   "filter": {
     "all": {
-      "require": "./{{options.name}}.filter",
+      "require": "./filters/default",
       "options": []
     }
   }
