@@ -11,7 +11,7 @@
   "after":{
     "all": [{ "require": "./hooks/after", "options": [] }]
   },
-  "filter": {
+  "filters": {
     "all": {
       "require": "./filters/default",
       "options": []

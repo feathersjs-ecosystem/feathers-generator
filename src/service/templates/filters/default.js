@@ -11,7 +11,7 @@ module.exports = function () {
   log(``);
 
   return function () {
-    log(`{{options.name}} filter returned: true`);
+    log(`default {{options.name}} filter returned: true`);
     return true;
   };
 };
