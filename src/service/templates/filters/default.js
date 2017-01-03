@@ -10,8 +10,8 @@ module.exports = function () {
   log(`For more information how to filter events see http://docs.feathersjs.com/real-time/filtering.html`);
   log(``);
 
-  return function () {
+  return function (data, connection, hook) {
     log(`default {{options.name}} filter returned: true`);
-    return true;
+    return data;
   };
 };
