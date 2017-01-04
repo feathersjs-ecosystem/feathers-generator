@@ -3,27 +3,26 @@ const debug = require('debug')('feathers-generator:hook');
 
 // Metalsmith + middleware
 const Metalsmith = require('metalsmith');
-// const mount = require('./middleware/mount');
 
 const TEMPLATE_PATH = path.resolve(__dirname, 'templates');
 const render = require('../utils/render');
 const json = require('../utils/json');
 const ask = require('../utils/ask');
 
-import { hooks as rename } from '../utils/rename';
-import { hooks as mount } from '../utils/mount';
+import { filter as rename } from '../utils/rename';
+import { filter as mount } from '../utils/mount';
 
 module.exports = function (prompt, done, options) {
   const metalsmith = Metalsmith(TEMPLATE_PATH);
   const SERVICE_PATH = path.resolve(options.path);
-  const HOOK_PATH = path.resolve(SERVICE_PATH, 'hooks');
+  const FILTER_PATH = path.resolve(SERVICE_PATH, 'filters');
   const FEATHERS_PATH = 'server/feathers.json';
   const MOUNT_PATH = options.mount || 'server/feathers.json';
   const CONFIG_PATH = options.config || 'config';
 
   debug('Template path: %s', TEMPLATE_PATH);
   debug('Service path: %s', SERVICE_PATH);
-  debug('Hook path: %s', HOOK_PATH);
+  debug('Hook path: %s', FILTER_PATH);
   debug('Feathers path: %s', FEATHERS_PATH);
   debug('Mount path: %s', MOUNT_PATH);
   debug('Config path: %s', CONFIG_PATH);
@@ -43,17 +42,17 @@ module.exports = function (prompt, done, options) {
     }))
     .clean(false)
     .source(TEMPLATE_PATH)
-    .destination(HOOK_PATH)
+    .destination(FILTER_PATH)
     .use(ask({ callback: prompt }))
     .use(rename(options)) // rename files for convention
-    .use(mount(options)) // mount service for bootstrap
+    .use(mount(options)) // mount filter for bootstrap
     .use(render()) // pass files through handlebars templating
     .build(function (error) {
       if (error) {
         return done(error);
       }
 
-      let message = `Successfully generated "${options.name}" ${options.template} at ${HOOK_PATH}`;
+      let message = `Successfully generated "${options.name}" ${options.template} at ${FILTER_PATH}`;
       debug(message);
       done(null, message);
     });

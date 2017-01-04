@@ -1,25 +1,9 @@
 {
   "prompts": [
     {
-      "name": "binding",
-      "type": "checkbox",
-      "message": "When would you like this hook execute?",
-      "choices": [
-        {
-          "name": "Before the service runs",
-          "value": "before",
-          "checked": true
-        },
-        {
-          "name": "After the service runs",
-          "value": "after"
-        }
-      ]
-    },
-    {
       "name": "method",
       "type": "checkbox",
-      "message": "What actions(s) would you like this hook to execute on?",
+      "message": "On what event(s) would you like this filter to execute on?",
       "choices": [
         {
           "name": "all",

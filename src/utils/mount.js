@@ -106,30 +106,22 @@ export function filter (options) {
 
     let relativeServiceConfigPath = path.relative(serviceConfigDirname, serviceConfigPath);
     let existingServiceConfig = require(serviceConfigPath);
-    let serviceConfigChanges = {};
+    let serviceConfigChanges = { filters: {} };
 
     debug(`Attempting to mount ${options.name} hook to service at ${serviceConfigPath}`);
 
-    metadata.answers.binding.map((b) => {
-      debug(`Compiling changes for ${b} bindings`);
+    metadata.answers.method.map((m) => {
+      debug(`Compiling changes for ${m} method`);
 
-      if (typeof serviceConfigChanges[b] === 'undefined') {
-        serviceConfigChanges[b] = {};
+      let filters = {
+        require: './filters/' + options.name + '.js',
+        options: []
+      };
+
+      if (typeof serviceConfigChanges['filters'][m] === 'undefined') {
+        serviceConfigChanges['filters'][m] = [];
       }
-
-      metadata.answers.method.map((m) => {
-        debug(`Compiling changes for ${b} bindings and ${m} method`);
-
-        let filters = {
-          require: './filters/' + options.name + '.js',
-          options: []
-        };
-
-        if (typeof serviceConfigChanges[b][m] === 'undefined') {
-          serviceConfigChanges[b][m] = [];
-        }
-        serviceConfigChanges[b][m].push(filters);
-      });
+      serviceConfigChanges['filters'][m].push(filters);
     });
 
     debug('Proposed service config changes', serviceConfigChanges);

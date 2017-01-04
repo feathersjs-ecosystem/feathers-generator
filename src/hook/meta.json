@@ -3,7 +3,7 @@
     {
       "name": "binding",
       "type": "checkbox",
-      "message": "When would you like this hook execute?",
+      "message": "When would you like this hook to execute?",
       "choices": [
         {
           "name": "Before the service runs",
@@ -19,7 +19,7 @@
     {
       "name": "method",
       "type": "checkbox",
-      "message": "What actions(s) would you like this hook to execute on?",
+      "message": "On what action(s) would you like this hook to execute on?",
       "choices": [
         {
           "name": "all",
