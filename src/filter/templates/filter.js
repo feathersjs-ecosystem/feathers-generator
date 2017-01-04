@@ -12,6 +12,7 @@ module.exports = function () {
 
   return function (data, connection, hook) {
     log(`generated {{options.name}} filter executed`);
+    data.ran = true;
     return data;
   };
 };
