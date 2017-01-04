@@ -19,7 +19,7 @@
     {
       "name": "method",
       "type": "checkbox",
-      "message": "On what action(s) would you like this hook to execute on?",
+      "message": "On what action(s) would you like this hook to execute?",
       "choices": [
         {
           "name": "all",
