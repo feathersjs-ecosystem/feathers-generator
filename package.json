@@ -42,7 +42,7 @@
     "release:minor": "npm version minor && npm publish",
     "release:major": "npm version major && npm publish",
     "compile": "npm run copy && babel -d lib/ src/",
-    "copy": "rimraf lib/ && cp -r src/ lib/",
+    "copy": "shx rm -rf lib/ && shx cp -r src/ lib/",
     "watch": "npm run copy && babel --watch -d lib/ src/",
     "lint": "eslint-if-supported semistandard --fix",
     "mocha": "mocha --opts mocha.opts",
@@ -90,7 +90,7 @@
     "eslint-if-supported": "^1.0.1",
     "istanbul": "^1.1.0-alpha.1",
     "mocha": "^2.4.5",
-    "rimraf": "^2.5.4",
+    "shx" : "^0.2.1",
     "semistandard": "^9.1.0"
   }
 }
