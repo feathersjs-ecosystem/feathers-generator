@@ -5,13 +5,14 @@ module.exports = function () {
     }
   }
 
-  log(`You are using the default filter for the \`{{options.name}}\` service (in ${__dirname}).`);
+  log(`You are using the default generated configuration for the \`{{options.name}}\` filter (in ${__dirname}).`);
   log(`This means all clients will get every real-time event.`);
   log(`For more information how to filter events see http://docs.feathersjs.com/real-time/filtering.html`);
   log(``);
 
-  return function () {
-    log(`{{options.name}} filter returned: true`);
-    return true;
+  return function (data, connection, hook) {
+    log(`generated {{options.name}} filter executed`);
+    data.ran = true;
+    return data;
   };
-}
+};

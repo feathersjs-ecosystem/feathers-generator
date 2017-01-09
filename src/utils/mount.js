@@ -96,3 +96,49 @@ export function hooks (options) {
     done();
   };
 }
+
+export function filter (options) {
+  return function mount (files, metalsmith, done) {
+    const metadata = metalsmith.metadata();
+
+    let serviceConfigPath = path.resolve(options.mount);
+    let serviceConfigDirname = path.dirname(serviceConfigPath);
+
+    let relativeServiceConfigPath = path.relative(serviceConfigDirname, serviceConfigPath);
+    let existingServiceConfig = require(serviceConfigPath);
+    let serviceConfigChanges = { filters: {} };
+
+    debug(`Attempting to mount ${options.name} hook to service at ${serviceConfigPath}`);
+
+    metadata.answers.method.map((m) => {
+      debug(`Compiling changes for ${m} method`);
+
+      let filters = {
+        require: './filters/' + options.name + '.js',
+        options: []
+      };
+
+      if (typeof serviceConfigChanges['filters'][m] === 'undefined') {
+        serviceConfigChanges['filters'][m] = [];
+      }
+      serviceConfigChanges['filters'][m].push(filters);
+    });
+
+    debug('Proposed service config changes', serviceConfigChanges);
+    let newServiceConfig = merge(existingServiceConfig, serviceConfigChanges);
+    debug('Final service config to be written', newServiceConfig);
+
+    // write out new root config so service is bootstrapped (respect white space)
+    fs.writeFile(serviceConfigPath, JSON.stringify(newServiceConfig, null, 2), function (err) {
+      if (err) {
+        debug(err.stack);
+        return done(err);
+      }
+      debug(`Successfully mounted "${options.name}" hook to service at ${serviceConfigPath}`);
+      debug(`Service config can be found at ${relativeServiceConfigPath}`);
+      done();
+    });
+
+    done();
+  };
+}

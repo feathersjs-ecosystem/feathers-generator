@@ -1,3 +1,41 @@
 {
-  "prompts": []
+  "prompts": [
+    {
+      "name": "method",
+      "type": "checkbox",
+      "message": "On what event(s) would you like this filter to execute?",
+      "choices": [
+        {
+          "name": "all",
+          "value": "all",
+          "checked": true
+        },
+        {
+          "name": "get",
+          "value": "get"
+        },
+        {
+          "name": "find",
+          "value": "find"
+        },
+        {
+          "name": "create",
+          "value": "create"
+        },
+        {
+          "name": "update",
+          "value": "update"
+        },
+        {
+          "name": "patch",
+          "value": "patch"
+        },
+        {
+          "name": "remove",
+          "value": "remove"
+        }
+      ]
+    }
+
+  ]
 }
