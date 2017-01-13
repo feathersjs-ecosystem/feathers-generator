@@ -15,7 +15,7 @@ import { middleware as mount } from '../utils/mount';
 module.exports = function (prompt, done, options) {
   const metalsmith = Metalsmith(TEMPLATE_PATH);
   const SERVICE_PATH = path.resolve(options.path);
-  const MW_PATH = path.resolve('./server/middleware');
+  const MW_PATH = path.resolve(options.root, 'server/middleware');
   const FEATHERS_PATH = 'server/feathers.json';
   const MOUNT_PATH = options.mount || 'server/feathers.json';
   const CONFIG_PATH = options.config || 'config';

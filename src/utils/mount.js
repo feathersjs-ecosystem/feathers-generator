@@ -167,7 +167,7 @@ export function middleware (options) {
         debug(`Compiling changes for ${b} bindings and ${m} method`);
 
         let hook = {
-          require: './middleware/' + options.name + '.js',
+          require: path.resolve(options.root, 'server/middleware', options.name + '.js'),
           options: []
         };
 
