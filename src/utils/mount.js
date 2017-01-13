@@ -156,27 +156,50 @@ export function middleware (options) {
 
     debug(`Attempting to mount ${options.name} middleware to service at ${serviceConfigPath}`);
 
-    metadata.answers.binding.map((b) => {
-      debug(`Compiling changes for ${b} bindings`);
+    // if the config starts with require. assume it's a service
+    let type = (existingServiceConfig.require) ? 'service' : 'app';
 
-      if (typeof serviceConfigChanges[b] === 'undefined') {
-        serviceConfigChanges[b] = {};
-      }
+    if (type === 'service') { // if it's a service mount it explicitly
+      metadata.answers.binding.map((b) => {
+        debug(`Compiling changes for ${b} bindings`);
 
-      metadata.answers.method.map((m) => {
-        debug(`Compiling changes for ${b} bindings and ${m} method`);
+        if (typeof serviceConfigChanges[b] === 'undefined') {
+          serviceConfigChanges[b] = {};
+        }
+
+        metadata.answers.method.map((m) => {
+          debug(`Compiling changes for ${b} bindings and ${m} method`);
+
+          let hook = {
+            require: path.resolve(options.root, options.path, options.name + '.js'),
+            options: []
+          };
+
+          if (typeof serviceConfigChanges[b][m] === 'undefined') {
+            serviceConfigChanges[b][m] = [];
+          }
+          serviceConfigChanges[b][m].push(hook);
+        });
+      });
+    } else { // if it's the application mount to / (wildcard)
+      metadata.answers.binding.map((b) => {
+        debug(`Compiling changes for ${b} bindings`);
+
+        if (typeof serviceConfigChanges[b] === 'undefined') {
+          serviceConfigChanges[b] = {};
+        }
 
         let hook = {
-          require: path.resolve(options.root, 'server/middleware', options.name + '.js'),
+          require: path.resolve(options.root, options.path, options.name + '.js'),
           options: []
         };
 
-        if (typeof serviceConfigChanges[b][m] === 'undefined') {
-          serviceConfigChanges[b][m] = [];
+        if (typeof serviceConfigChanges[b]['/'] === 'undefined') {
+          serviceConfigChanges[b]['/'] = [];
         }
-        serviceConfigChanges[b][m].push(hook);
+        serviceConfigChanges[b]['/'].push(hook);
       });
-    });
+    }
 
     debug('Proposed service config changes', serviceConfigChanges);
     let newServiceConfig = merge(existingServiceConfig, serviceConfigChanges);
