@@ -11,7 +11,7 @@ module.exports = function () {
   log(``);
 
   return function (data, connection, hook) {
-    log(`generated {{options.name}} filter executed`);
+    log(`generated {{options.name}} middleware executed`);
     data.ran = true;
     return data;
   };
