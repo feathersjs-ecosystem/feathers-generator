@@ -2,8 +2,11 @@ const assert = require('assert');
 const createMiddleware = require('./{{options.name}}');
 
 describe('{{options.name}} middleware tests', function () {
-  it('middleware ran', function () {
+  it('middleware ran', function (done) {
     const mw = createMiddleware();
-    assert.equal(mw({}).ran, true);
+    mw({}, {}, function() {
+      assert(true);
+      done();
+    });
   });
 });
