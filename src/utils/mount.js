@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import Debug from 'debug';
-// import merge from 'object.assign';
 import mergeWith from 'lodash.mergewith';
 import isArray from 'lodash.isarray';
 
