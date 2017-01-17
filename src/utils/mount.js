@@ -154,12 +154,12 @@ export function middleware (options) {
     let existingServiceConfig = require(serviceConfigPath);
     let serviceConfigChanges = {};
 
-    debug(`Attempting to mount ${options.name} middleware to service at ${serviceConfigPath}`);
-
     // if the config starts with require. assume it's a service
     let type = (existingServiceConfig.require) ? 'service' : 'app';
 
     if (type === 'service') { // if it's a service mount it explicitly
+      debug(`Attempting to mount ${options.name} middleware to service at ${serviceConfigPath}`);
+
       metadata.answers.binding.map((b) => {
         debug(`Compiling changes for ${b} bindings`);
 
@@ -182,6 +182,8 @@ export function middleware (options) {
         });
       });
     } else { // if it's the application mount to / (wildcard)
+      debug(`Attempting to mount ${options.name} middleware to app at ${serviceConfigPath}`);
+
       metadata.answers.binding.map((b) => {
         debug(`Compiling changes for ${b} bindings`);
 
@@ -200,6 +202,47 @@ export function middleware (options) {
         serviceConfigChanges[b]['/'].push(hook);
       });
     }
+
+    debug('Proposed service config changes', serviceConfigChanges);
+    let newServiceConfig = merge(existingServiceConfig, serviceConfigChanges);
+    debug('Final service config to be written', newServiceConfig);
+
+    // write out new root config so service is bootstrapped (respect white space)
+    fs.writeFile(serviceConfigPath, JSON.stringify(newServiceConfig, null, 2), function (err) {
+      if (err) {
+        debug(err.stack);
+        return done(err);
+      }
+      debug(`Successfully mounted "${options.name}" middleware to service at ${serviceConfigPath}`);
+      debug(`Service config can be found at ${relativeServiceConfigPath}`);
+      done();
+    });
+
+    done();
+  };
+}
+
+export function plugin (options) {
+  return function mount (files, metalsmith, done) {
+    // const metadata = metalsmith.metadata();
+
+    let serviceConfigPath = path.resolve(options.mount);
+    let serviceConfigDirname = path.dirname(serviceConfigPath);
+
+    let relativeServiceConfigPath = path.relative(serviceConfigDirname, serviceConfigPath);
+    let existingServiceConfig = require(serviceConfigPath);
+    let serviceConfigChanges = { plugins: [] };
+
+    debug(`Attempting to mount ${options.name} plugin to app at ${serviceConfigPath}`);
+
+    debug(`Compiling changes for plugin bindings`);
+
+    let hook = {
+      require: path.resolve(options.root, options.path, options.name + '.js'),
+      options: []
+    };
+
+    serviceConfigChanges.plugins.push(hook);
 
     debug('Proposed service config changes', serviceConfigChanges);
     let newServiceConfig = merge(existingServiceConfig, serviceConfigChanges);
