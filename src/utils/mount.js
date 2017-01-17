@@ -23,7 +23,6 @@ function merge (source, changes) {
   return mergeWith(source, changes, safeMerge);
 }
 
-// Add to use property on feathers.json if --mount defined
 export function services (options) {
   return function mount (files, metalsmith, done) {
     // if not mounting, skip
