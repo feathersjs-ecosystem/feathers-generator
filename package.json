@@ -73,6 +73,7 @@
     "handlebars": "^4.0.5",
     "i": "^0.3.3",
     "lodash.merge": "^4.4.0",
+    "lodash.mergewith": "^4.6.0",
     "metalsmith": "^2.1.0",
     "metalsmith-copy": "^0.3.0",
     "metalsmith-move-up": "^1.0.0",
@@ -90,7 +91,7 @@
     "eslint-if-supported": "^1.0.1",
     "istanbul": "^1.1.0-alpha.1",
     "mocha": "^2.4.5",
-    "shx" : "^0.2.1",
+    "shx": "^0.2.1",
     "semistandard": "^9.1.0"
   }
 }
