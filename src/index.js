@@ -2,7 +2,7 @@
 import app from './app/generator';
 import hook from './hook/generator';
 import filter from './filter/generator';
-// import middleware from './middleware/generator';
+import middleware from './middleware/generator';
 // import plugin from './plugin/generator';
 import service from './service/generator';
 
@@ -10,7 +10,7 @@ const generators = {
   app,
   hook,
   filter,
-  // middleware,
+  middleware,
   // plugin,
   service
 };

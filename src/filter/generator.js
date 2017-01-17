@@ -22,7 +22,7 @@ module.exports = function (prompt, done, options) {
 
   debug('Template path: %s', TEMPLATE_PATH);
   debug('Service path: %s', SERVICE_PATH);
-  debug('Hook path: %s', FILTER_PATH);
+  debug('Filter path: %s', FILTER_PATH);
   debug('Feathers path: %s', FEATHERS_PATH);
   debug('Mount path: %s', MOUNT_PATH);
   debug('Config path: %s', CONFIG_PATH);
