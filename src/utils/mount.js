@@ -1,11 +1,27 @@
 import fs from 'fs';
 import path from 'path';
 import Debug from 'debug';
-import merge from 'object.assign';
+import mergeWith from 'lodash.mergewith';
+import isArray from 'lodash.isarray';
 
 let debug = Debug('feathers-generator:mount');
 
-// Add to use property on feathers.json if --mount defined
+/*
+ * @Function merge - safely merges without overwrite of arrays
+ * @argument source <Object> - the original object to merge to
+ * @argument changes <Object> - changes to be merged
+ * @returns <Object> - safely merged configuration object
+ */
+function merge (source, changes) {
+  debug('merging', source, changes);
+  function safeMerge (src, chg) {
+    debug('isArray', src);
+    if (isArray(src)) {
+      return src.concat(chg);
+    }
+  }
+  return mergeWith(source, changes, safeMerge);
+}
 
 export function services (options) {
   return function mount (files, metalsmith, done) {
