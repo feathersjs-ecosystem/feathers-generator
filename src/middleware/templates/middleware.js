@@ -1,4 +1,4 @@
-module.exports = function () {
+module.exports = function (options={}) {
   function log () {
     if (process.env.NODE_ENV !== 'testing') {
       console.log(...arguments);
@@ -10,9 +10,8 @@ module.exports = function () {
   log(`For more information how to use middleware see https://docs.feathersjs.com/middleware/readme.html`);
   log(``);
 
-  return function (data, connection, hook) {
+  return function(req, res, next) {
     log(`generated {{options.name}} middleware executed`);
-    data.ran = true;
-    return data;
+    return next();
   };
 };

@@ -83,7 +83,7 @@ export function hooks (options) {
         debug(`Compiling changes for ${b} bindings and ${m} method`);
 
         let hook = {
-          require: './hooks/' + options.name + '.js',
+          require: './hooks/' + options.name,
           options: []
         };
 
@@ -130,7 +130,7 @@ export function filter (options) {
       debug(`Compiling changes for ${m} method`);
 
       let filters = {
-        require: './filters/' + options.name + '.js',
+        require: './filters/' + options.name,
         options: []
       };
 
@@ -186,8 +186,10 @@ export function middleware (options) {
         metadata.answers.method.map((m) => {
           debug(`Compiling changes for ${b} bindings and ${m} method`);
 
+          let relativePath = path.relative(options.mount, path.join(options.path, options.name));
+
           let hook = {
-            require: path.resolve(options.root, options.path, options.name + '.js'),
+            require: './' + relativePath,
             options: []
           };
 
@@ -207,8 +209,12 @@ export function middleware (options) {
           serviceConfigChanges[b] = {};
         }
 
+        let dir = path.dirname(options.path);
+        let writePath = path.join(options.path, options.name);
+        let relativePath = path.relative(dir, writePath);
+
         let hook = {
-          require: path.resolve(options.root, options.path, options.name + '.js'),
+          require: './' + relativePath,
           options: []
         };
 
@@ -254,7 +260,7 @@ export function plugin (options) {
     debug(`Compiling changes for plugin bindings`);
 
     let hook = {
-      require: path.resolve(options.root, options.path, options.name + '.js'),
+      require: path.resolve(options.root, options.path, options.name),
       options: []
     };
 
