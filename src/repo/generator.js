@@ -6,7 +6,6 @@ const Metalsmith = require('metalsmith');
 const moveUp = require('metalsmith-move-up');
 const copy = require('metalsmith-copy');
 const dotfiles = require('./middleware/dotfiles');
-const configuration = require('./middleware/configuration');
 const packageJSON = require('./middleware/package-json');
 
 const json = require('../utils/json');
