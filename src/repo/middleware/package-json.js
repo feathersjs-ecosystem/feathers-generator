@@ -45,7 +45,7 @@ export default function (options) {
     template.devDependencies = Object.assign(
       {},
       meta.devDependencies.common,
-      babel ? meta.devDependencies.babel : {},
+      meta.devDependencies.babel,
       linter === 'jshint' ? meta.devDependencies.jshint : {},
       linter === 'eslint' ? meta.devDependencies.eslint : {}
     );

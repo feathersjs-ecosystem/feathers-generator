@@ -12,26 +12,6 @@
       "type": "input",
       "message": "Project description",
       "default": "pkg.description || 'A Feathers project'"
-    },
-    {
-      "name": "linter",
-      "type": "list",
-      "message": "Which linter would you like to use?",
-      "when": "answers.linter === undefined",
-      "choices": [
-        {
-          "name": "JShint",
-          "value": "jshint"
-        },
-        {
-          "name": "ESLint",
-          "value": "eslint"
-        },
-        {
-          "name": "None",
-          "value": false
-        }
-      ]
     }
   ],
   "dependencies": {
