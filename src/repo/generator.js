@@ -52,9 +52,7 @@ module.exports = function (prompt, done, options) {
       debug(`Successfully generated ${options.template} "${options.name}" at ${options.root}`);
 
       const message = `
-Great success! Your new app "${options.name}" has been created.
-
-Change to the directory by running 'cd ${options.root} start the app with 'npm start'.
+Great success! Your new repo "${options.name}" has been created.
 `;
 
       install(options).then(() => done(null, message));
