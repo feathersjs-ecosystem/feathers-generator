@@ -5,6 +5,7 @@ import filter from './filter/generator';
 import middleware from './middleware/generator';
 import plugin from './plugin/generator';
 import service from './service/generator';
+import repo from './repo/generator';
 
 const generators = {
   app,
@@ -12,7 +13,8 @@ const generators = {
   filter,
   middleware,
   plugin,
-  service
+  service,
+  repo
 };
 
 // TODO (EK): Check for args to see which type of generator we are going to call
