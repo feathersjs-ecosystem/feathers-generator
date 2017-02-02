@@ -17,7 +17,18 @@
     "node": ">=0.12.0",
     "npm": ">=2.0.0"
   },
-  "scripts": {},
+  "scripts": {
+    "publish": "git push origin && git push origin --tags",
+    "release:patch": "npm version patch && npm publish",
+    "release:minor": "npm version minor && npm publish",
+    "release:major": "npm version major && npm publish",
+    "watch": "npm run copy && babel --watch -d lib/ src/",
+    "lint": "./node_modules/.bin/eslint-if-supported ./node_modules/.bin/semistandard --fix",
+    "mocha": "mocha $(find {server,test} -name '*.test.js') --recursive",
+    "test": "npm run lint && npm run coverage",
+    "coverage": "NODE_ENV=testing istanbul cover node_modules/mocha/bin/_mocha -- $(find {server,test} -name '*.test.js') --recursive"
+
+  },
   "dependencies": {},
   "devDependencies": {}
 }
