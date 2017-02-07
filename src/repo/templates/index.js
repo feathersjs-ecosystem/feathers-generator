@@ -1,2 +1,2 @@
 'use strict';
-module.exports = require('./src/index/index.json');
+module.exports = require('./src/index.json');

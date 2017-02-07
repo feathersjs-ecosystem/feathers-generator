@@ -17,6 +17,9 @@
     "node": ">=0.12.0",
     "npm": ">=2.0.0"
   },
+  "semistandard": {
+    "globals": [ "describe", "before", "after", "it" ]
+  },
   "scripts": {
     "publish": "git push origin && git push origin --tags",
     "release:patch": "npm version patch && npm publish",
@@ -27,7 +30,6 @@
     "mocha": "mocha $(find {server,test} -name '*.test.js') --recursive",
     "test": "npm run lint && npm run coverage",
     "coverage": "NODE_ENV=testing istanbul cover node_modules/mocha/bin/_mocha -- $(find {server,test} -name '*.test.js') --recursive"
-
   },
   "dependencies": {},
   "devDependencies": {}
