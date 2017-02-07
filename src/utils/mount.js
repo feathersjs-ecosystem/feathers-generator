@@ -61,6 +61,11 @@ export function services (options) {
 
 export function hooks (options) {
   return function mount (files, metalsmith, done) {
+    // if not mounting, skip
+    if (!options.mount) {
+      return done(null);
+    }
+
     const metadata = metalsmith.metadata();
 
     let serviceConfigPath = path.resolve(options.mount);
@@ -115,7 +120,12 @@ export function hooks (options) {
 
 export function filter (options) {
   return function mount (files, metalsmith, done) {
-    const metadata = metalsmith.metadata();
+    // if not mounting, skip
+    if (!options.mount) {
+      return done(null);
+    }
+
+     const metadata = metalsmith.metadata();
 
     let serviceConfigPath = path.resolve(options.mount);
     let serviceConfigDirname = path.dirname(serviceConfigPath);
@@ -161,6 +171,11 @@ export function filter (options) {
 
 export function middleware (options) {
   return function mount (files, metalsmith, done) {
+    // if not mounting, skip
+    if (!options.mount) {
+      return done(null);
+    }
+
     const metadata = metalsmith.metadata();
 
     let serviceConfigPath = path.resolve(options.mount);
@@ -246,6 +261,11 @@ export function middleware (options) {
 
 export function plugin (options) {
   return function mount (files, metalsmith, done) {
+    // if not mounting, skip
+    if (!options.mount) {
+      return done(null);
+    }
+
     // const metadata = metalsmith.metadata();
 
     let serviceConfigPath = path.resolve(options.mount);

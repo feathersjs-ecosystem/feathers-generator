@@ -16,9 +16,16 @@ import { services as mount } from '../utils/mount';
 
 module.exports = function (prompt, done, options) {
   const metalsmith = Metalsmith(TEMPLATE_PATH);
-  const SERVICE_PATH = path.resolve(options.path, options.name);
   const MOUNT_PATH = options.mount || 'server/feathers.json';
   const CONFIG_PATH = options.config || 'config';
+
+  // if generating as standalone, use src dir
+  let SERVICE_PATH;
+  if (!options.mount && options.path === '.') {
+    SERVICE_PATH = path.resolve(options.path, 'src');
+  } else {
+    SERVICE_PATH = path.resolve(options.path, options.name);
+  }
 
   debug('Service path: %s', SERVICE_PATH);
   debug('Template path: %s', TEMPLATE_PATH);

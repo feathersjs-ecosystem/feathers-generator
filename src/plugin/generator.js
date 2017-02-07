@@ -15,10 +15,17 @@ import { plugin as mount } from '../utils/mount';
 module.exports = function (prompt, done, options) {
   const metalsmith = Metalsmith(TEMPLATE_PATH);
   const SERVICE_PATH = path.resolve(options.path);
-  const PLUGIN_PATH = path.resolve(options.root, 'server/plugins');
   const FEATHERS_PATH = 'server/feathers.json';
   const MOUNT_PATH = options.mount || 'server/feathers.json';
   const CONFIG_PATH = options.config || 'config';
+
+  // if generating as standalone, use src dir
+  let PLUGIN_PATH;
+  if (!options.mount && options.path === '.') {
+    PLUGIN_PATH = path.resolve(options.path, 'src');
+  } else {
+    PLUGIN_PATH = path.resolve(options.root, 'server/plugin');
+  }
 
   debug('Template path: %s', TEMPLATE_PATH);
   debug('Service path: %s', SERVICE_PATH);
