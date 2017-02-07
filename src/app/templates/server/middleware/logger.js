@@ -3,7 +3,7 @@
 // @slajax TODO: re-write this logger so it scales
 const winston = require('winston');
 
-module.exports = function (options = {}) {
+module.exports = function (/* options = {}*/) {
   return function (error, req, res, next) {
     if (error) {
       const message = `${error.code ? `(${error.code}) ` : ''} Route: ${req.url} - ${error.message}`;

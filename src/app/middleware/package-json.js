@@ -12,7 +12,7 @@ export default function (options) {
   return function packageJSON (files, metalsmith, done) {
     const metadata = metalsmith.metadata();
     const {name, description} = metadata.options;
-    const {babel, linter, providers, cors} = metadata.answers;
+    const {babel, providers, cors} = metadata.answers;
     const meta = metadata.meta;
     const existing = metadata.pkg;
     let template = files['package.json'];
@@ -49,29 +49,16 @@ export default function (options) {
     template.devDependencies = Object.assign(
       {},
       meta.devDependencies.common,
-      babel ? meta.devDependencies.babel : {},
-      linter === 'jshint' ? meta.devDependencies.jshint : {},
-      linter === 'eslint' ? meta.devDependencies.eslint : {}
+      babel ? meta.devDependencies.babel : {}
     );
 
     // Scripts
     if (babel) {
       template.scripts.start = `babel-node index.js`;
-      template.scripts.mocha = `NODE_ENV=testing mocha {test/,server/**/*.test.js,server/**/**/*.test.js} --compilers js:babel-core/register --recursive`;
+      template.scripts.mocha = `NODE_ENV=testing mocha $(find {server,test} -name '*.test.js') --compilers js:babel-core/register --recursive`;
     } else {
       template.scripts.start = `node index.js`;
-      template.scripts.mocha = `NODE_ENV=testing mocha {test/,server/**/*.test.js,server/**/**/*.test.js} --recursive`;
-    }
-
-    switch (linter) {
-      case 'jshint':
-        template.scripts.lint = `jshint server/. test/. --config`;
-        template.scripts.test = `npm run lint && npm run mocha`;
-        break;
-      case 'eslint':
-        template.scripts.lint = `eslint server/. test/.`;
-        template.scripts.test = `npm run lint && npm run mocha`;
-        break;
+      template.scripts.mocha = `NODE_ENV=testing mocha $(find {server,test} -name '*.test.js') --recursive`;
     }
 
     const newJSON = merge(template, existing);

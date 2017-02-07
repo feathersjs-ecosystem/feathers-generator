@@ -15,10 +15,17 @@ import { middleware as mount } from '../utils/mount';
 module.exports = function (prompt, done, options) {
   const metalsmith = Metalsmith(TEMPLATE_PATH);
   const SERVICE_PATH = path.resolve(options.path);
-  const MW_PATH = path.resolve(options.root, 'server/middleware');
   const FEATHERS_PATH = 'server/feathers.json';
   const MOUNT_PATH = options.mount || 'server/feathers.json';
   const CONFIG_PATH = options.config || 'config';
+
+  // if generating as standalone, use src dir
+  let MW_PATH;
+  if (!options.mount && options.path === '.') {
+    MW_PATH = path.resolve(options.path, 'src');
+  } else {
+    MW_PATH = path.resolve(options.root, 'server/middleware');
+  }
 
   debug('Template path: %s', TEMPLATE_PATH);
   debug('Service path: %s', SERVICE_PATH);

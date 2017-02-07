@@ -12,6 +12,7 @@ const feathersJSON = require('./middleware/feathers-json');
 
 const json = require('../utils/json');
 const install = require('../utils/install');
+const test = require('../utils/test');
 const ask = require('../utils/ask');
 
 const TEMPLATE_PATH = path.resolve(__dirname, 'templates');
@@ -61,6 +62,6 @@ Great success! Your new app "${options.name}" has been created.
 Change to the directory by running 'cd ${options.root} start the app with 'npm start'.
 `;
 
-      install(options).then(() => done(null, message));
+      install(options).then(() => test(options).then(() => done(null, message)));
     });
 };
