@@ -3,8 +3,8 @@ FROM ubuntu:14.04.3
 MAINTAINER Kyle Campbell <kc@kc.io>
 
 ENV TERM xterm
-ENV NVM_DIR /usr/local/nvm
-ENV NODE_VERSION "stable"
+
+RUN useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo
 
 RUN apt-get update
 RUN apt-get -y install sudo
@@ -23,39 +23,47 @@ RUN apt-get install -y build-essential \
   pkg-config \
   make \
   openssh-server \
-  nano \
   libkrb5-dev
 
-
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+RUN mkdir -p /src && mkdir -p /src/app
+RUN chown -R docker:docker /src
 
-RUN curl https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash \
-    && source $NVM_DIR/nvm.sh \
+# nvm environment variables
+ENV NVM_DIR /usr/local/nvm
+ENV NODE_VERSION 6.9.5
+
+# install nvm
+# https://github.com/creationix/nvm#install-script
+RUN curl --silent -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.2/install.sh | bash
+
+# install node and npm
+RUN source $NVM_DIR/nvm.sh \
     && nvm install $NODE_VERSION \
     && nvm alias default $NODE_VERSION \
     && nvm use default
 
-RUN echo "nvm Version: $(nvm --version)"
-RUN nvm install stable
-RUN echo "node Version: $node -v)"
-RUN which node
-RUN echo "npm Version: $(npm -v)"
-RUN which node
+# add node and npm to path so the commands are available
+ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
+ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 
-RUN mkdir -p /src
-WORKDIR /src
-VOLUME /src
+# confirm installation
+RUN node -v
+RUN npm -v
 
-ADD .eslintignore /src
-ADD .eslintrc /src
-ADD .nvmrc /src
-ADD config /src
-ADD index.js /src
-ADD server /src
-ADD static /src
-ADD test /src
-ADD package.json /src
+ADD .eslintignore /src/app
+ADD .eslintrc /src/app
+ADD .nvmrc /src/app
+ADD config /src/app/config
+ADD server/ /src/app/server
+ADD static /src/app/static
+ADD test /src/app/test
+ADD index.js /src/app
+ADD package.json /src/app
 
-EXPOSE 3030
+EXPOSE 3030:3030
+WORKDIR /src/app
+RUN npm install
+RUN ls -asl
 
 CMD ["npm", "start"]
