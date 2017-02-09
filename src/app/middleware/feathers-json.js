@@ -10,6 +10,7 @@ const debug = Debug('feathers-generator:feathers-json'); // eslint-disable-line
 // - write out updated feathers.json to this.options.root
 
 export default function (options) {
+
   return function feathersJSON (files, metalsmith, done) {
     const meta = metalsmith.metadata();
     const { name, providers, cors, whitelist } = meta.answers;
@@ -59,7 +60,9 @@ export default function (options) {
       options: [{
         require: 'bunyan',
         options:[{
-          name: name
+          name: name,
+          level: 'config.log.level',
+          src: 'config.log.src'
         }]
       }]
     });

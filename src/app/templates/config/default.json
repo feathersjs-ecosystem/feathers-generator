@@ -1,6 +1,10 @@
 {
   "port": 3030,
   "static": "./static",
+  "log": {
+    "level": 30,
+    "src": true
+  },
   "nedb": {
     "path": "data"
   },
