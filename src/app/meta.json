@@ -3,7 +3,7 @@
     {
       "name": "name",
       "type": "input",
-      "message": "Name of your Feathers application",
+      "message": "Name of your application",
       "default": "pkg.name || options.name",
       "required": true
     },
@@ -11,7 +11,7 @@
       "name": "description",
       "type": "input",
       "message": "Project description",
-      "default": "pkg.description || 'A Feathers project'"
+      "default": "pkg.description || 'My project'"
     },
     {
       "name": "providers",
