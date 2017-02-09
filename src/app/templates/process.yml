@@ -1,0 +1,7 @@
+apps:
+  - script: ./index.js
+    name: web
+    instances: 1
+    exec_mode: fork
+    no_daemon: true
+    watch: ["server"]

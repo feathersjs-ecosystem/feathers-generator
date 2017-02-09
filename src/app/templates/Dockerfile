@@ -63,7 +63,8 @@ ADD package.json /src/app
 
 EXPOSE 3030:3030
 WORKDIR /src/app
-RUN npm install
-RUN ls -asl
 
-CMD ["npm", "start"]
+RUN npm install -g pm2
+RUN npm install
+
+CMD pm2-docker index.js
