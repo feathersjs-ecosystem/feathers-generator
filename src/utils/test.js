@@ -14,13 +14,15 @@ export default function (options) {
     let packageJSON = require(packagePath);
     let engine = packageJSON.engines.yarn ? 'yarn' : 'npm';
 
+    // TODO @slajax - async check that yarn is installed
+
     console.log();
     console.log(`Running integration tests using ${engine}...`);
     console.log(options.root);
 
-    const npm = spawn(engine, ['test'], {stdio: 'inherit', cwd: process.cwd() });
+    const tester = spawn(engine, ['test'], {stdio: 'inherit', cwd: process.cwd() });
 
-    npm.on('close', function (code) {
+    tester.on('close', function (code) {
       debug(`'${engine} test' exited with code ${code}`);
 
       if (code === 0) {
