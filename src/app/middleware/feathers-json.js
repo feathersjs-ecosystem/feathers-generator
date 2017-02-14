@@ -10,9 +10,10 @@ const debug = Debug('feathers-generator:feathers-json'); // eslint-disable-line
 // - write out updated feathers.json to this.options.root
 
 export default function (options) {
+
   return function feathersJSON (files, metalsmith, done) {
     const meta = metalsmith.metadata();
-    const { providers, cors, whitelist } = meta.answers;
+    const { name, providers, cors, whitelist } = meta.answers;
     const existing = meta.feathers;
     let template = files['server/feathers.json'];
 
@@ -53,6 +54,18 @@ export default function (options) {
     } else {
       delete files['server/middleware/body-parser'];
     }
+
+    template.plugins.push({
+      require: 'feathers-logger',
+      options: [{
+        require: 'bunyan',
+        options:[{
+          name: name,
+          level: 'config.log.level',
+          src: 'config.log.src'
+        }]
+      }]
+    });
 
     const newJSON = merge(template, existing);
 

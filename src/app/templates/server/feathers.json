@@ -13,7 +13,7 @@
   "after": {
     "/": [
       { "require": "feathers-errors/not-found", "options": [] },
-      { "require": "./middleware/logger", "options": [] },  
+      { "require": "./middleware/logger", "options": [] },
       { "require": "feathers-errors/handler", "options": [] }
     ]
   }
