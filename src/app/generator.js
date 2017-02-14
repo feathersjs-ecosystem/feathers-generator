@@ -62,6 +62,8 @@ Great success! Your new app "${options.name}" has been created.
 Change to the directory by running 'cd ${options.root} start the app with 'npm start'.
 `;
 
-      install(options).then(() => test(options).then(() => done(null, message)));
+      install(options)
+        .then(() => test(options)
+        .then(() => done(null, message)));
     });
 };

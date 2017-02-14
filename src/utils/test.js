@@ -2,6 +2,7 @@
  * Run npm test
  */
 
+import path from 'path';
 import Debug from 'debug';
 import { spawn } from 'child_process';
 
@@ -9,17 +10,21 @@ const debug = Debug('feathers-generator:test');
 
 export default function (options) {
   return new Promise((resolve, reject) => {
+    let packagePath = path.resolve(options.root, 'package.json');
+    let packageJSON = require(packagePath);
+    let engine = packageJSON.engines.yarn ? 'yarn' : 'npm';
+
     console.log();
-    console.log(`Running integration tests...`);
+    console.log(`Running integration tests using ${engine}...`);
     console.log(options.root);
 
-    const npm = spawn('npm', ['test'], {stdio: 'inherit', cwd: process.cwd() });
+    const npm = spawn(engine, ['test'], {stdio: 'inherit', cwd: process.cwd() });
 
     npm.on('close', function (code) {
-      debug(`'npm test' exited with code ${code}`);
+      debug(`'${engine} test' exited with code ${code}`);
 
       if (code === 0) {
-        debug('npm test ran successfully');
+        debug(`${engine} test ran successfully`);
         return resolve();
       }
 

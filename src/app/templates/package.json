@@ -14,8 +14,8 @@
   "contributors": [],
   "bugs": {},
   "engines": {
-    "node": ">=0.12.0",
-    "npm": ">=2.0.0"
+    "node": ">=4.4.0",
+    "yarn": ">=0.19.1"
   },
   "semistandard": {
     "globals": [ "describe", "before", "after", "it" ]
