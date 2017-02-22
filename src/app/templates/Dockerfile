@@ -61,7 +61,8 @@ ADD test /src/app/test
 ADD index.js /src/app
 ADD package.json /src/app
 
-EXPOSE 3030:3030
+EXPOSE 80:3030
+EXPOSE 443:3030
 WORKDIR /src/app
 
 RUN npm install -g pm2

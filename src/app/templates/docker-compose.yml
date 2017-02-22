@@ -3,5 +3,5 @@ services:
   web:
     build: .
     ports:
-      - 3030:3030
+      - 80:3030
       - 443:3030
