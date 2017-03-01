@@ -1,5 +1,6 @@
 import Debug from 'debug';
 import merge from 'lodash.merge';
+import { spawnSync as spawn } from 'child_process';
 
 const debug = Debug('feathers-generator'); // eslint-disable-line
 
@@ -61,8 +62,13 @@ export default function (options) {
       template.scripts.mocha = `NODE_ENV=testing mocha $(find {server,test} -name '*.test.js') --recursive`;
     }
 
-    const newJSON = merge(template, existing);
+    // if not yarn, fall back to npm
+    let yarn = spawn('yarn', ['--version']);
+    if(yarn.error) {
+      delete template['engines']['yarn'];
+    }
 
+    const newJSON = merge(template, existing);
     files['package.json'].contents = JSON.stringify(newJSON, null, 2);
 
     done();

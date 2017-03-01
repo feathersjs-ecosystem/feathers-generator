@@ -14,7 +14,8 @@ export default function (options) {
     let packageJSON = require(packagePath);
     let engine = packageJSON.engines.yarn ? 'yarn' : 'npm';
 
-    // TODO @slajax: sync check if yarn installed
+    // yarn fall back is in src/app/middleware/package-json.js:68
+    // yarn fall back is in src/repo/middleware/package-json.js:60
 
     console.log();
     console.log(`Installing dependencies using ${engine}...`);
