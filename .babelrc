@@ -1,7 +1,4 @@
 {
   "plugins": [ "add-module-exports" ],
-  "presets": [ "es2015" ],
-  "ignore": [
-    "**/templates/**/*.js"
-  ]
+  "presets": [ "es2015" ]
 }
