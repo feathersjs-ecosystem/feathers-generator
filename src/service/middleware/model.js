@@ -3,6 +3,7 @@ import { spawn } from 'child_process';
 // const path = require('path');
 const each = require('async').each;
 const match = require('multimatch');
+const install = require('../../utils/install');
 const debug = require('debug')('feathers-generator:model');
 
 export default function (options) {
@@ -41,19 +42,8 @@ export default function (options) {
       return done();
     }
 
-    let depNames = deps.join(' ');
-    let root = options.root.replace(options.path, '');
-    debug(`Dependencies found, running: 'npm i --save ${depNames}' in ${root}`);
-    const npm = spawn('npm', ['i', '--save', ...deps], {stdio: 'inherit', cwd: root});
+    options.root.replace(options.path, '');
+    install(options, deps).then(() => done);
 
-    npm.on('close', function (code) {
-      if (code !== 0) {
-        debug(`'npm i --save ${depNames}' exited with code ${code}`);
-        return done(new Error('There was a problem installing the dependencies'));
-      } else {
-        debug(`Dependencies have been installed and saved to package.json`);
-        return done();
-      }
-    });
   };
 }
