@@ -56,6 +56,11 @@ export default function (options) {
     }
 
     template.plugins.push({
+      require: 'feathers-configuration',
+      options: []
+    });
+
+    template.plugins.push({
       require: 'feathers-logger',
       options: [{
         require: 'bunyan',
