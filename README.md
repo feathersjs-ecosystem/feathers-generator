@@ -1,5 +1,7 @@
 # feathers-generator
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/feathersjs/feathers-generator.svg)](https://greenkeeper.io/)
+
 [![Build Status](https://travis-ci.org/feathersjs/feathers-client.png?branch=master)](https://travis-ci.org/feathersjs/feathers-client)
 [![Code Climate](https://codeclimate.com/github/feathersjs/feathers-generator.png)](https://codeclimate.com/github/feathersjs/feathers-generator)
 [![Test Coverage](https://codeclimate.com/github/feathersjs/feathers-generator/badges/coverage.svg)](https://codeclimate.com/github/feathersjs/feathers-generator/coverage)
