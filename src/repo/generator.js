@@ -27,7 +27,7 @@ module.exports = function (prompt, done, options) {
       staging: path.join(options.root, 'config', 'staging.json'),
       production: path.join(options.root, 'config', 'production.json'),
       pkg: path.join(options.root, 'package.json'),
-      feathers: path.join(options.root, 'server', 'feathers.json')
+      feathers: path.join(options.root, 'src', 'feathers.json')
     }))
     .use(moveUp({
       pattern: 'dotfiles/*',

@@ -15,7 +15,7 @@ export default function (options) {
     const meta = metalsmith.metadata();
     const { name, providers, cors, whitelist } = meta.answers;
     const existing = meta.feathers;
-    let template = files['server/feathers.json'];
+    let template = files['src/feathers.json'];
 
     if (template && template.contents) {
       try {
@@ -52,7 +52,7 @@ export default function (options) {
       template.plugins.push({ require: 'feathers-rest', options: [] });
       template.before['/'].push({ 'require': './middleware/body-parser', 'options': [{ 'extended': true }] });
     } else {
-      delete files['server/middleware/body-parser'];
+      delete files['src/middleware/body-parser'];
     }
 
     template.plugins.push({
@@ -74,7 +74,7 @@ export default function (options) {
 
     const newJSON = merge(template, existing);
 
-    files['server/feathers.json'].contents = JSON.stringify(newJSON, null, 2);
+    files['src/feathers.json'].contents = JSON.stringify(newJSON, null, 2);
 
     done();
   };
