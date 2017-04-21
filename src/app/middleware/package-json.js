@@ -56,10 +56,10 @@ export default function (options) {
     // Scripts
     if (babel) {
       template.scripts.start = `babel-node index.js`;
-      template.scripts.mocha = `NODE_ENV=testing mocha $(find {server,test} -name '*.test.js') --compilers js:babel-core/register --recursive`;
+      template.scripts.mocha = `NODE_ENV=testing mocha $(find {src,test} -name '*.test.js') --compilers js:babel-core/register --recursive`;
     } else {
       template.scripts.start = `node index.js`;
-      template.scripts.mocha = `NODE_ENV=testing mocha $(find {server,test} -name '*.test.js') --recursive`;
+      template.scripts.mocha = `NODE_ENV=testing mocha $(find {src,test} -name '*.test.js') --recursive`;
     }
 
     // if not yarn, fall back to npm

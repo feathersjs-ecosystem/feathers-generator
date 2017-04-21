@@ -15,8 +15,8 @@ import { plugin as mount } from '../utils/mount';
 module.exports = function (prompt, done, options) {
   const metalsmith = Metalsmith(TEMPLATE_PATH);
   const SERVICE_PATH = path.resolve(options.path);
-  const FEATHERS_PATH = 'server/feathers.json';
-  const MOUNT_PATH = options.mount || 'server/feathers.json';
+  const FEATHERS_PATH = 'src/feathers.json';
+  const MOUNT_PATH = options.mount || 'src/feathers.json';
   const CONFIG_PATH = options.config || 'config';
 
   // if generating as standalone, use src dir
@@ -24,7 +24,7 @@ module.exports = function (prompt, done, options) {
   if (!options.mount && options.path === '.') {
     PLUGIN_PATH = path.resolve(options.path, 'src');
   } else {
-    PLUGIN_PATH = path.resolve(options.root, 'server/plugin');
+    PLUGIN_PATH = path.resolve(options.root, 'src/plugin');
   }
 
   debug('Template path: %s', TEMPLATE_PATH);

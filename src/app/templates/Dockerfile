@@ -55,7 +55,7 @@ ADD .eslintignore /src/app
 ADD .eslintrc /src/app
 ADD .nvmrc /src/app
 ADD config /src/app/config
-ADD server/ /src/app/server
+ADD src/ /src/app/src
 ADD static /src/app/static
 ADD test /src/app/test
 ADD index.js /src/app

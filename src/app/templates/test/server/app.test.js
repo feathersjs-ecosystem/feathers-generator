@@ -3,7 +3,7 @@
 
 const assert = require('assert');
 const request = require('request');
-const app = require('../../server/app');
+const app = require('../../src/app');
 
 describe('application tests', function () {
   before(function (done) {
