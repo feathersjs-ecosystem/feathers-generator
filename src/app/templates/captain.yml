@@ -1,11 +1,11 @@
-cns:
+{{options.name}}:
   build: Dockerfile
   image: {{options.name}}
   pre:
     - echo "Preparing {{options.name}}"
   post:
     - echo "Finished {{options.name}}"
-cns-test:
+{{options.name}}-test:
   build: Dockerfile.test
   image: {{options.name}}-test
   pre:
