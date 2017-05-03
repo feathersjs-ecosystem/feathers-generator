@@ -14,6 +14,7 @@ const json = require('../utils/json');
 const install = require('../utils/install');
 const test = require('../utils/test');
 const ask = require('../utils/ask');
+const render = require('../utils/render');
 
 const TEMPLATE_PATH = path.resolve(__dirname, 'templates');
 
@@ -32,6 +33,9 @@ module.exports = function (prompt, done, options) {
       pkg: path.join(options.root, 'package.json'),
       feathers: path.join(options.root, 'src', 'feathers.json')
     }))
+    .clean(false)
+    .source(TEMPLATE_PATH)
+    .destination(options.root)
     .use(moveUp({
       pattern: 'dotfiles/*',
       opt: { dot: true }
@@ -46,9 +50,7 @@ module.exports = function (prompt, done, options) {
     .use(packageJSON())
     .use(feathersJSON())
     .use(configuration())
-    .clean(false)
-    .source(TEMPLATE_PATH) // start from template root instead of `./src` which is Metalsmith's default for `source`
-    .destination(options.root)
+    .use(render())
     .build(function (error) {
       if (error) {
         return done(error);

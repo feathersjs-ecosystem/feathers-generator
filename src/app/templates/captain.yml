@@ -1,0 +1,16 @@
+{{options.name}}:
+  build: Dockerfile
+  image: {{options.name}}
+  pre:
+    - echo "Preparing {{options.name}}"
+  post:
+    - echo "Finished {{options.name}}"
+{{options.name}}-test:
+  build: Dockerfile.test
+  image: {{options.name}}-test
+  pre:
+    - echo "Preparing {{options.name}}-test"
+  post:
+    - echo "Finished {{options.name}}-test"
+  test:
+    - docker run -e NODE_ENV=testing -it {{options.name}}-test /bin/bash -c 'npm test'
