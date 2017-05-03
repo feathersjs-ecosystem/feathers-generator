@@ -65,7 +65,7 @@ EXPOSE 80:3030
 EXPOSE 443:3030
 WORKDIR /src/app
 
-RUN npm install -g pm2
-RUN npm install
+RUN npm install -g pm2 yarn
+RUN yarn install
 
 CMD pm2-docker index.js
