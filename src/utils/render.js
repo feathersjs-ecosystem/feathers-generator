@@ -9,7 +9,7 @@ module.exports = function (/* options */) {
     async.each(keys, run, done);
 
     function run (file, done) {
-      if(~!file.indexOf('.ico')) return done();
+      if(~file.indexOf('.ico')) return done();
 
       var str = files[file].contents.toString();
       render(str, metadata, function (err, res) {
