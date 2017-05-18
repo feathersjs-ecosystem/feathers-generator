@@ -29,11 +29,14 @@
     "compile": "npm run copy && babel -d lib/ src/",
     "copy": "shx rm -rf lib/ && shx cp -r src/ lib/",
     "watch": "npm run copy && babel --watch -d lib/ src/",
-    "lint": "eslint-if-supported semistandard --fix",
-    "mocha": "mocha --opts mocha.opts",
-    "test": "npm run compile && npm run lint && npm run coverage",
-    "coverage": "istanbul cover node_modules/mocha/bin/_mocha -- --opts mocha.opts"
-
+    "lint": "./node_modules/.bin/eslint-if-supported ./node_modules/.bin/semistandard --fix",
+    "mocha": "mocha $(find {src,test} -name '*.test.js') --recursive",
+    "test": "npm run test:local",
+    "test:local": "npm run lint && npm run coverage",
+    "test:docker":"npm run docker:test",
+    "docker:build":"captain build",
+    "docker:test":"captain test",
+    "coverage": "NODE_ENV=testing istanbul cover node_modules/mocha/bin/_mocha -- $(find {src,test} -name '*.test.js') --compilers js:babel-core/register --recursive"
   },
   "dependencies": {},
   "devDependencies": {}

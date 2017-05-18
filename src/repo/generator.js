@@ -55,6 +55,12 @@ module.exports = function (prompt, done, options) {
 Great success! Your new repo "${options.name}" has been created.
 `;
 
-      install(options).then(() => done(null, message));
+      install(options)
+        .then(() => done(null, message))
+        .catch(() => {
+          debug('Error:', error.message);
+          debug('Stack:', error.stack);
+          done(error);
+        });
     });
 };

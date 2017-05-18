@@ -43,7 +43,13 @@ export default function (options) {
     }
 
     options.root.replace(options.path, '');
-    install(options, deps).then(done);
+    install(options, deps)
+      .then(done)
+      .catch((error) => {
+        debug('Error:', error.message);
+        debug('Stack:', error.stack);
+        done(error);
+      });
 
   };
 }

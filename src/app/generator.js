@@ -66,6 +66,12 @@ Change to the directory by running 'cd ${options.root} start the app with 'npm s
 
       install(options)
         .then(() => test(options)
-        .then(() => done(null, message)));
+        .then(() => done(null, message)))
+        .catch((error) => {
+          debug('Error:', error.message);
+          debug('Stack:', error.stack);
+          done(error);
+        });
+
     });
 };

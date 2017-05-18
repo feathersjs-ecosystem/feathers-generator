@@ -1,5 +1,5 @@
 const assert = require('assert');
-const app = require('../app');
+const app = require('../../app');
 
 describe('{{options.name}} service tests', function() {
   before(function(done) {

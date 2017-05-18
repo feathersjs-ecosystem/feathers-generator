@@ -50,17 +50,12 @@ export default function (options) {
     template.devDependencies = Object.assign(
       {},
       meta.devDependencies.common,
-      babel ? meta.devDependencies.babel : {}
+      meta.devDependencies.babel
     );
 
-    // Scripts
-    if (babel) {
-      template.scripts.start = `babel-node index.js`;
-      template.scripts.mocha = `NODE_ENV=testing mocha $(find {src,test} -name '*.test.js') --compilers js:babel-core/register --recursive`;
-    } else {
-      template.scripts.start = `node index.js`;
-      template.scripts.mocha = `NODE_ENV=testing mocha $(find {src,test} -name '*.test.js') --recursive`;
-    }
+    template.scripts.prod = `NODE_ENV=production node index.js`;
+    template.scripts.start = `babel-node index.js`;
+    template.scripts.mocha = `NODE_ENV=testing mocha $(find {lib,test} -name '*.test.js') --compilers js:babel-core/register --recursive`;
 
     // if not yarn, fall back to npm
     let yarn = spawn('yarn', ['--version']);
