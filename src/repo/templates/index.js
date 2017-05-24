@@ -1,3 +1,6 @@
 'use strict';
-let index = require('./src/index.json');
-export default index
+
+var env = process.env.NODE_ENV;
+var dir = env === 'production' ? 'lib' : 'src';
+
+module.exports = require(`./${dir}/index/index`)();
