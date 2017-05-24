@@ -1,2 +1,3 @@
 'use strict';
-module.exports = require('./src/index.json');
+let index = require('./src/index.json');
+export default index

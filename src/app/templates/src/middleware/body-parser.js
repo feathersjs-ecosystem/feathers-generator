@@ -2,7 +2,7 @@
 
 const bodyParser = require('body-parser');
 
-module.exports = function(options = {}) {
+export default function(options = {}) {
   const json = bodyParser.json();
   const urlencoded = bodyParser.urlencoded({
     extended: options.extended

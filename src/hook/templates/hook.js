@@ -1,4 +1,4 @@
-module.exports = function(options = {}) {
+export default function(options = {}) {
   function log () {
     if (process.env.NODE_ENV !== 'testing') {
       console.log(...arguments);

@@ -13,7 +13,7 @@ const ask = require('../utils/ask');
 import { hooks as rename } from '../utils/rename';
 import { hooks as mount } from '../utils/mount';
 
-module.exports = function (prompt, done, options) {
+export default function (prompt, done, options) {
   const metalsmith = Metalsmith(TEMPLATE_PATH);
   const SERVICE_PATH = path.resolve(options.path);
   const FEATHERS_PATH = 'src/feathers.json';

@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function (/* options = {}*/) {
+export default function (/* options = {}*/) {
   return function (error, req, res, next) {
     if (error) {
       const message = `${error.code ? `(${error.code}) ` : ''} Route: ${req.url} - ${error.message}`;

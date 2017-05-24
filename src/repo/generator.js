@@ -14,7 +14,7 @@ const ask = require('../utils/ask');
 
 const TEMPLATE_PATH = path.resolve(__dirname, 'templates');
 
-module.exports = function (prompt, done, options) {
+export default function (prompt, done, options) {
   const metalsmith = Metalsmith(TEMPLATE_PATH);
 
   metalsmith

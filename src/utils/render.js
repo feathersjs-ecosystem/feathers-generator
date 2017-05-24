@@ -2,7 +2,7 @@ var async = require('async');
 var render = require('consolidate').handlebars.render;
 var debug = require('debug')('feathers-generator:render')
 
-module.exports = function (/* options */) {
+export default function (/* options */) {
   return function (files, metalsmith, done) {
     var keys = Object.keys(files);
     var metadata = metalsmith.metadata();

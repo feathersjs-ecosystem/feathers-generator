@@ -2,6 +2,6 @@
 
 const serveStatic = require('feathers').static;
 
-module.exports = function(options = {}) {
+export default function(options = {}) {
   return serveStatic(options.path);
 };
