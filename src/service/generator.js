@@ -14,7 +14,7 @@ const ask = require('../utils/ask');
 import { services as rename } from '../utils/rename';
 import { services as mount } from '../utils/mount';
 
-module.exports = function (prompt, done, options) {
+export default function (prompt, done, options) {
   const metalsmith = Metalsmith(TEMPLATE_PATH);
   const MOUNT_PATH = options.mount || 'src/feathers.json';
   const CONFIG_PATH = options.config || 'config';

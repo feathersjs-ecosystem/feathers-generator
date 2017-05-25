@@ -1,6 +1,9 @@
 'use strict';
 
-const app = require('./src/app');
+var env = process.env.NODE_ENV;
+var dir = env === 'production' ? 'lib' : 'src';
+
+const app = require(`./${dir}/app`);
 
 app.start().then(() =>
   app.info(`Application listening on port ${app.config.get('port')}`)

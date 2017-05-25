@@ -1,7 +1,7 @@
 const client = require('rethinkdbdash');
 const service = require('feathers-rethinkdb');
 
-module.exports = function (options) {
+export default function (options) {
   // Create a rethinkdb connection
   // @slajax: add servers to rethink client
   const model = client({ db: options.db });

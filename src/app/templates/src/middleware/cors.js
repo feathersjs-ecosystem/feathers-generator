@@ -2,7 +2,7 @@
 
 const cors = require('cors');
 
-module.exports = function(options = {}) {
+export default function(options = {}) {
   return cors(options.whitelist);
 };
 
@@ -10,7 +10,7 @@ module.exports = function(options = {}) {
 //   return function() {
 //     const app = this;
 //     let corsOptions;
-    
+
 //     if (options.whitelist) {
 //       corsOptions = {
 //         origin (origin, callback) {

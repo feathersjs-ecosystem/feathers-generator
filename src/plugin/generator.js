@@ -12,7 +12,7 @@ const ask = require('../utils/ask');
 import { plugin as rename } from '../utils/rename';
 import { plugin as mount } from '../utils/mount';
 
-module.exports = function (prompt, done, options) {
+export default function (prompt, done, options) {
   const metalsmith = Metalsmith(TEMPLATE_PATH);
   const SERVICE_PATH = path.resolve(options.path);
   const FEATHERS_PATH = 'src/feathers.json';

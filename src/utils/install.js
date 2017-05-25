@@ -12,7 +12,7 @@ export default function (options, deps = []) {
   return new Promise((resolve, reject) => {
     let packagePath = path.resolve(options.root, 'package.json');
     let packageJSON = require(packagePath);
-    let engine = packageJSON.engines.yarn ? 'yarn' : 'npm';
+    let engine = packageJSON.engines && packageJSON.engines.yarn ? 'yarn' : 'npm';
     let action = deps.length && engine === 'yarn' ? 'add' : 'install';
 
     // yarn fall back is in src/app/middleware/package-json.js:68

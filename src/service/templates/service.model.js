@@ -1,5 +1,5 @@
 // default empty model
 
-module.exports = function (options) {
+export default function (options) {
 
 };

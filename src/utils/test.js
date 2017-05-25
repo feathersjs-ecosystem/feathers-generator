@@ -12,7 +12,7 @@ export default function (options) {
   return new Promise((resolve, reject) => {
     let packagePath = path.resolve(options.root, 'package.json');
     let packageJSON = require(packagePath);
-    let engine = packageJSON.engines.yarn ? 'yarn' : 'npm';
+    let engine = packageJSON.engines && packageJSON.engines.yarn ? 'yarn' : 'npm';
 
     // TODO @slajax - async check that yarn is installed
 

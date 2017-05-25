@@ -1,6 +1,6 @@
 const memory = require('feathers-memory');
 
-module.exports = function (options) {
+export default function (options) {
   // Create a memory instance
   return memory({ });
 };
