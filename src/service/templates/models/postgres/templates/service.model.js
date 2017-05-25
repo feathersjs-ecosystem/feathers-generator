@@ -11,31 +11,30 @@ export default function (options) {
     password : ''
   };
 
-  pgtools.createdb(conn, 'todos', function (err, res) {
-    if (err) {
-      console.error(err);
-      process.exit(-1);
-    }
-    console.log(res);
+  pgtools.createdb(conn, options.table)
+    .then(() => {
+      console.log('error', arguments);
+    })
+    .catch(() => {
+      console.log('error', arguments)
+    });
+
+  return;
+
+  conn.database = options.table;
+  const model = require('knex')({
+    client: 'pg',
+    version: '9.6.3',
+    connection: conn
   });
 
-  //const model = require('knex')({
-    //client: 'pg',
-    //version: '9.6.3',
-    //connection: conn
-  //});
+  var postgres = service({
+    Model: model,
+    name: options.table,
+    paginate: options.paginate
+  });
 
-  //model.raw('CREATE DATABASE todos')
-    //.then(function(){
-      //console.log('todos created')
-    //})
-  //var postgres = service({
-    //Model: model,
-    //name: options.table,
-    //paginate: options.paginate
-  //});
-
-  //// <!-- init block
+  // <!-- init block
   //return postgres
     ////.init()
     //.then(() => {
@@ -44,7 +43,7 @@ export default function (options) {
       //return postgres;
     //})
     //.catch(err => console.log('rethinkdb init failed:', err.msg));
-  //// init block -->
+  // init block -->
 
-  // return rethink; // uncomment, when removing init block
+  return postgres; // uncomment, when removing init block
 };
