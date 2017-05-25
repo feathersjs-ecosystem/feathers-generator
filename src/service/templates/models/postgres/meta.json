@@ -1,0 +1,7 @@
+{
+  "prompts": {
+    "whenNot": "config.postgres.db",
+    "name": "config.postgres.db",
+    "description": "What database do you want to use?"
+  }
+}

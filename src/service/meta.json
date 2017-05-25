@@ -24,7 +24,7 @@
           }
         },
         {
-          "name": "Mongoose",
+          "name": "MongoDB",
           "checked": false,
           "value": {
             "template": "mongoose",
@@ -39,6 +39,15 @@
             "template": "rethinkdb",
             "require": "feathers-rethinkdb",
             "deps": ["rethinkdbdash", "feathers-rethinkdb"]
+          }
+        },
+        {
+          "name": "Postgres",
+          "checked": false,
+          "value": {
+            "template": "postgres",
+            "require": "feathers-knex",
+            "deps": ["pg","pgtools", "knex", "feathers-knex"]
           }
         },
         {
