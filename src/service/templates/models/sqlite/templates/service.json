@@ -1,0 +1,20 @@
+{
+  "require": "./{{options.name}}.model",
+  "options": [{
+    "db": "config.{{answers.model.template}}.db",
+    "table":"{{options.name}}",
+    "paginate": "config.paginate"
+  }],
+  "before":{
+    "all": [{ "require": "./hooks/before", "options": [] }]
+  },
+  "after":{
+    "all": [{ "require": "./hooks/after", "options": [] }]
+  },
+  "filters": {
+    "all": {
+      "require": "./filters/default",
+      "options": []
+    }
+  }
+}
