@@ -1,19 +1,20 @@
 const client = require('knex');
 const service = require('feathers-knex');
 const pgtools = require('pgtools');
+const user = require("os").userInfo().username;
 
 export default function (options) {
-  // Create a rethinkdb connection
-  // @slajax: add servers to knex client
 
-  const model = knex({
+  const debug = require('debug')(`feathers:service:${options.table}:postgres`)
+
+  const model = client({
     client: 'pg',
-    version: '9.6.3',
+    version: options.version || '9.6.3',
     connection: {
-      host : '127.0.0.1',
-      user : options.user,
-      password : options.pass, // this needs to be a better way
-      database: options.db
+      host : options.host || '127.0.0.1',
+      user : options.user || user,
+      password : options.pass || '', // this needs to be a better way
+      database: options.db || 'feathers'
     }
   });
 
