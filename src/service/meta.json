@@ -47,7 +47,7 @@
           "value": {
             "template": "postgres",
             "require": "feathers-knex",
-            "deps": ["pg","pgtools", "knex", "feathers-knex"]
+            "deps": ["pg", "knex", "feathers-knex"]
           }
         },
         {
