@@ -1,6 +1,5 @@
 const client = require('knex');
 const service = require('feathers-knex');
-const pgtools = require('pgtools');
 const user = require("os").userInfo().username;
 
 export default function (options) {
