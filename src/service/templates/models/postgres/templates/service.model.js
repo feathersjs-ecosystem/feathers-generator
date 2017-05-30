@@ -5,27 +5,16 @@ const pgtools = require('pgtools');
 export default function (options) {
   // Create a rethinkdb connection
   // @slajax: add servers to knex client
-  const conn = {
-    host : '127.0.0.1',
-    user : 'slajax',
-    password : ''
-  };
 
-  pgtools.createdb(conn, options.table)
-    .then(() => {
-      console.log('error', arguments);
-    })
-    .catch(() => {
-      console.log('error', arguments)
-    });
-
-  return;
-
-  conn.database = options.table;
-  const model = require('knex')({
+  const model = knex({
     client: 'pg',
     version: '9.6.3',
-    connection: conn
+    connection: {
+      host : '127.0.0.1',
+      user : options.user,
+      password : options.pass, // this needs to be a better way
+      database: options.db
+    }
   });
 
   var postgres = service({
@@ -35,15 +24,22 @@ export default function (options) {
   });
 
   // <!-- init block
-  //return postgres
-    ////.init()
-    //.then(() => {
-      //console.log(`Postgres ${options.db}.${options.table} has been created.`);
-      //console.log(`You should remove the "init block" in ${__filename} now.`);
-      //return postgres;
-    //})
-    //.catch(err => console.log('rethinkdb init failed:', err.msg));
+  return postgres
+    .init({}, (table) => {
+      // define your schema here
+      debug(`created ${table._tableName} table`);
+      table.increments('id');
+      table.string('text');
+      table.boolean('complete');
+    })
+    .then(() => {
+      console.log(`Postgres ${options.db}.${options.table} has been created.`);
+      console.log(`You should remove the "init block" in ${__filename} now.`);
+      return postgres;
+    })
+    .catch(err => console.log('Postgres init failed:', err));
   // init block -->
 
   return postgres; // uncomment, when removing init block
+
 };
