@@ -1,0 +1,15 @@
+{
+  "port": 3030,
+  "static": "./static",
+  "log": {
+    "level": 30,
+    "src": true
+  },
+  "nedb": {
+    "path": "data"
+  },
+  "paginate": {
+    "default": 10,
+    "max": 25
+  }
+}

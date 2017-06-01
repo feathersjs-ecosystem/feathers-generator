@@ -1,0 +1,16 @@
+app:
+  build: Dockerfile
+  image: app
+  pre:
+    - echo "Preparing app"
+  post:
+    - echo "Finished app"
+app-test:
+  build: Dockerfile.test
+  image: app-test
+  pre:
+    - echo "Preparing app-test"
+  post:
+    - echo "Finished app-test"
+  test:
+    - docker run -e NODE_ENV=testing -it app-test /bin/bash -c 'npm test'
