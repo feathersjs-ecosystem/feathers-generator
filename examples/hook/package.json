@@ -1,0 +1,62 @@
+{
+  "name": "hook",
+  "version": "0.0.0",
+  "homepage": "",
+  "main": "index.js",
+  "private": true,
+  "keywords": [
+    "feathers"
+  ],
+  "license": "",
+  "repository": {},
+  "author": {},
+  "contributors": [],
+  "bugs": {},
+  "engines": {
+    "node": ">=4.4.0",
+    "yarn": ">=0.19.1"
+  },
+  "semistandard": {
+    "globals": [
+      "describe",
+      "before",
+      "after",
+      "it"
+    ]
+  },
+  "scripts": {
+    "prepublish": "npm run compile",
+    "publish": "git push origin && git push origin --tags",
+    "release:patch": "npm version patch && npm publish",
+    "release:minor": "npm version minor && npm publish",
+    "release:major": "npm version major && npm publish",
+    "compile": "npm run copy && babel -d lib/ src/",
+    "copy": "shx rm -rf lib/ && shx cp -r src/ lib/",
+    "watch": "npm run copy && babel --watch -d lib/ src/",
+    "lint": "./node_modules/.bin/eslint-if-supported ./node_modules/.bin/semistandard --fix",
+    "mocha": "NODE_ENV=testing mocha $(find {src,test} -name '*.test.js') --compilers js:babel-core/register --recursive",
+    "test": "npm run test:local",
+    "test:local": "npm run lint && npm run coverage",
+    "test:docker": "npm run docker:test",
+    "docker:build": "captain build",
+    "docker:test": "captain test",
+    "coverage": "NODE_ENV=testing istanbul cover node_modules/mocha/bin/_mocha -- $(find {src,test} -name '*.test.js') --compilers js:babel-core/register --recursive",
+    "prod": "NODE_ENV=production node index.js",
+    "start": "babel-node index.js"
+  },
+  "dependencies": {
+    "winston": "^2.2.0"
+  },
+  "devDependencies": {
+    "mocha": "^2.4.5",
+    "request": "^2.72.0",
+    "istanbul": "^1.1.0-alpha.1",
+    "shx": "^0.2.1",
+    "eslint-if-supported": "^1.0.1",
+    "semistandard": "^9.2.1",
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.7.0",
+    "babel-preset-es2015": "^6.6.0",
+    "babel-plugin-add-module-exports": "^0.2.1"
+  }
+}
