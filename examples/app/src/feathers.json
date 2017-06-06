@@ -1,0 +1,89 @@
+{
+  "config": {},
+  "plugins": [
+    {
+      "require": "feathers-hooks",
+      "options": []
+    },
+    {
+      "require": "feathers-socketio",
+      "options": []
+    },
+    {
+      "require": "feathers-rest",
+      "options": []
+    },
+    {
+      "require": "feathers-configuration",
+      "options": []
+    },
+    {
+      "require": "feathers-logger",
+      "options": [
+        {
+          "require": "bunyan",
+          "options": [
+            {
+              "name": "app",
+              "level": "config.log.level",
+              "src": "config.log.src"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "before": {
+    "/": [
+      {
+        "require": "compression",
+        "options": []
+      },
+      {
+        "require": "./middleware/cors",
+        "options": []
+      },
+      {
+        "require": "./middleware/static",
+        "options": [
+          {
+            "path": "config.static"
+          }
+        ]
+      },
+      {
+        "require": "./middleware/favicon",
+        "options": [
+          {
+            "path": "config.static"
+          }
+        ]
+      },
+      {
+        "require": "./middleware/body-parser",
+        "options": [
+          {
+            "extended": true
+          }
+        ]
+      }
+    ]
+  },
+  "use": {},
+  "after": {
+    "/": [
+      {
+        "require": "feathers-errors/not-found",
+        "options": []
+      },
+      {
+        "require": "./middleware/logger",
+        "options": []
+      },
+      {
+        "require": "feathers-errors/handler",
+        "options": []
+      }
+    ]
+  }
+}
