@@ -42,6 +42,14 @@
           }
         },
         {
+          "name": "SQLite",
+          "checked": false,
+          "value": {
+            "template": "sqlite",
+            "require": "feathers-knex",
+            "deps": ["sqlite3", "feathers-knex"]
+          }
+        },
           "name": "Mysql",
           "checked": false,
           "value": {
@@ -50,7 +58,6 @@
             "deps": ["mysql", "feathers-knex"]
           }
         },
-
         {
           "name": "None",
           "checked": false,

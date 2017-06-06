@@ -1,0 +1,7 @@
+{
+  "prompts": {
+    "whenNot": "config.sqlite.db",
+    "name": "config.sqlite.db",
+    "description": "What database do you want to use?"
+  }
+}
