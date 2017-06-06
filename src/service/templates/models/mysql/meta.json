@@ -1,0 +1,7 @@
+{
+  "prompts": {
+    "whenNot": "config.mysql.db",
+    "name": "config.mysql.db",
+    "description": "What database do you want to use?"
+  }
+}
