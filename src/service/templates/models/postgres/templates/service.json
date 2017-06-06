@@ -1,0 +1,23 @@
+{
+  "require": "./{{options.name}}.model",
+  "options": [{
+    "host": "config.{{answers.model.template}}.host",
+    "user": "config.{{answers.model.template}}.user",
+    "pass": "config.{{answers.model.template}}.pass",
+    "db": "config.{{answers.model.template}}.db",
+    "table":"{{options.name}}",
+    "paginate": "config.paginate"
+  }],
+  "before":{
+    "all": [{ "require": "./hooks/before", "options": [] }]
+  },
+  "after":{
+    "all": [{ "require": "./hooks/after", "options": [] }]
+  },
+  "filters": {
+    "all": {
+      "require": "./filters/default",
+      "options": []
+    }
+  }
+}

@@ -24,7 +24,7 @@
           }
         },
         {
-          "name": "Mongoose",
+          "name": "MongoDB",
           "checked": false,
           "value": {
             "template": "mongoose",
@@ -56,6 +56,15 @@
             "template": "mysql",
             "require": "feathers-knex",
             "deps": ["mysql", "feathers-knex"]
+          }
+        },
+        {
+          "name": "Postgres",
+          "checked": false,
+          "value": {
+            "template": "postgres",
+            "require": "feathers-knex",
+            "deps": ["pg", "knex", "feathers-knex"]
           }
         },
         {
