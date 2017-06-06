@@ -50,6 +50,14 @@
             "deps": ["sqlite3", "feathers-knex"]
           }
         },
+          "name": "Mysql",
+          "checked": false,
+          "value": {
+            "template": "mysql",
+            "require": "feathers-knex",
+            "deps": ["mysql", "feathers-knex"]
+          }
+        },
         {
           "name": "None",
           "checked": false,
