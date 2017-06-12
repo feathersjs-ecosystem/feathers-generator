@@ -50,6 +50,7 @@
             "deps": ["sqlite3", "feathers-knex"]
           }
         },
+        {
           "name": "Mysql",
           "checked": false,
           "value": {
