@@ -1,7 +1,7 @@
 'use strict';
 
 var env = process.env.NODE_ENV;
-var dir = env === 'production' ? 'lib' : 'src';
+var dir = env === ('production' || 'testing') ? 'lib' : 'src';
 
 const app = require(`./${dir}/app`);
 

@@ -52,7 +52,7 @@ export default function (options) {
     // Scripts
     template.scripts.prod = `NODE_ENV=production node index.js`;
     template.scripts.start = `babel-node index.js`;
-    template.scripts.mocha = `NODE_ENV=testing mocha $(find {src,test} -name '*.test.js') --compilers js:babel-core/register --recursive`;
+    template.scripts.mocha = `NODE_ENV=testing mocha $(find {lib,test} -name '*.test.js') --recursive`;
 
     // if not yarn, fall back to npm
     let yarn = spawn('yarn', ['--version']);

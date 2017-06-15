@@ -31,7 +31,7 @@ RUN chown -R docker:docker /src
 
 # nvm environment variables
 ENV NVM_DIR /usr/local/nvm
-ENV NODE_VERSION 6.9.5
+ENV NODE_VERSION 7.10.0
 
 # install nvm
 # https://github.com/creationix/nvm#install-script
@@ -51,6 +51,7 @@ ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 RUN node -v
 RUN npm -v
 
+ADD .babelrc /src/app
 ADD .eslintignore /src/app
 ADD .eslintrc /src/app
 ADD .nvmrc /src/app
@@ -61,11 +62,14 @@ ADD test /src/app/test
 ADD index.js /src/app
 ADD package.json /src/app
 
-EXPOSE 80:3030
-EXPOSE 443:3030
 WORKDIR /src/app
 
+RUN chown -R docker:docker /src/app
 RUN npm install -g pm2 yarn
 RUN yarn install
+RUN npm run compile
 
-CMD pm2-docker index.js
+EXPOSE 80:3030
+EXPOSE 443:3030
+
+CMD n[npm run prod

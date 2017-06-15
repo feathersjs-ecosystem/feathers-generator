@@ -36,7 +36,7 @@
     "test:docker":"npm run docker:test",
     "docker:build":"captain build",
     "docker:test":"captain test",
-    "coverage": "NODE_ENV=testing istanbul cover node_modules/mocha/bin/_mocha -- $(find {src,test} -name '*.test.js') --compilers js:babel-core/register --recursive"
+    "coverage": "NODE_ENV=testing istanbul cover node_modules/mocha/bin/_mocha -- $(find {lib,test} -name '*.test.js') --recursive"
   },
   "dependencies": {},
   "devDependencies": {}

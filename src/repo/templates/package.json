@@ -31,12 +31,12 @@
     "watch": "npm run copy && babel --watch -d lib/ src/",
     "lint": "./node_modules/.bin/eslint-if-supported ./node_modules/.bin/semistandard --fix",
     "mocha": "mocha $(find {src,test} -name '*.test.js') --recursive",
-    "test": "npm run test:local",
+    "test": "npm run compile && nptat run test:local",
     "test:local": "npm run lint && npm run coverage",
     "test:docker":"npm run docker:test",
     "docker:build":"captain build",
     "docker:test":"captain test",
-    "coverage": "NODE_ENV=testing istanbul cover node_modules/mocha/bin/_mocha -- $(find {src,test} -name '*.test.js') --compilers js:babel-core/register --recursive"
+    "coverage": "NODE_ENV=testing istanbul cover node_modules/mocha/bin/_mocha -- $(find {lib,test} -name '*.test.js') --compilers js:babel-core/register --recursive"
   },
   "dependencies": {},
   "devDependencies": {}
