@@ -29,7 +29,7 @@
     "compile": "npm run copy && babel -d lib/ src/",
     "copy": "shx rm -rf lib/ && shx cp -r src/ lib/",
     "watch": "npm run copy && babel --watch -d lib/ src/",
-    "lint": "./node_modules/.bin/eslint-if-supported ./node_modules/.bin/semistandard --fix",
+    "lint": "./node_modules/.bin/eslint-if-supported ./node_modules/.bin/semistandard --fix src test index.js",
     "mocha": "mocha $(find {src,test} -name '*.test.js') --recursive",
     "test": "npm run compile && nptat run test:local",
     "test:local": "npm run lint && npm run coverage",
